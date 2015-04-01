@@ -50,7 +50,7 @@ public class SocioEntity implements java.io.Serializable {
 	private boolean estado;
 
 	private CuentaAporteEntity cuentaAporte;
-	private Set<CuentaPersonalEntity> cuentasBancarias = new HashSet<CuentaPersonalEntity>();
+	private Set<CuentaPersonalEntity> cuentasPersonales = new HashSet<CuentaPersonalEntity>();
 
 	private Timestamp version;
 
@@ -161,12 +161,12 @@ public class SocioEntity implements java.io.Serializable {
 	}
 
 	@OneToMany(mappedBy = "socio", fetch = FetchType.LAZY)
-	public Set<CuentaPersonalEntity> getCuentasBancarias() {
-		return cuentasBancarias;
+	public Set<CuentaPersonalEntity> getCuentasPersonales() {
+		return cuentasPersonales;
 	}
 
-	public void setCuentasBancarias(Set<CuentaPersonalEntity> cuentasBancarias) {
-		this.cuentasBancarias = cuentasBancarias;
+	public void setCuentasPersonales(Set<CuentaPersonalEntity> cuentasPersonales) {
+		this.cuentasPersonales = cuentasPersonales;
 	}
 
 	@Version

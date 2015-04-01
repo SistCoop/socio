@@ -1,11 +1,8 @@
 package org.sistcoop.socio.models;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
-import org.sistcoop.socio.models.jpa.entities.CuentaPersonalEntity;
-
-public interface BeneficiarioModel {
+public interface BeneficiarioModel extends Model {
 
 	Long getId();
 
@@ -15,13 +12,11 @@ public interface BeneficiarioModel {
 
 	String getTipoDocumento();
 
-	void setTipoDocumento();
+	void setTipoDocumento(String tipoDocumento);
 
 	String getNumeroDocumento();
 
-	void setNumeroDocumento();
-
-	Date getFechaInicio();
+	void setNumeroDocumento(String numeroDocumento);
 
 	String getApellidoPaterno();
 
@@ -30,6 +25,10 @@ public interface BeneficiarioModel {
 	String getApellidoMaterno();
 
 	void setApellidoMaterno(String apellidoMaterno);
+
+	String getNombres();
+
+	void setNombres(String nombres);
 
 	CuentaPersonalModel getCuentaPersonal();
 

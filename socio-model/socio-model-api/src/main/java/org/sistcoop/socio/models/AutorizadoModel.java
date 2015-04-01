@@ -2,7 +2,7 @@ package org.sistcoop.socio.models;
 
 import java.util.Date;
 
-public interface AutorizadoModel {
+public interface AutorizadoModel extends Model {
 
 	Long getId();
 
@@ -14,7 +14,7 @@ public interface AutorizadoModel {
 
 	Date getFechaFin();
 
-	void setFechaFin();
+	void setFechaFin(Date fechaFin);
 
 	boolean getEstado();
 
