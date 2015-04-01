@@ -1,2 +1,2 @@
-# socio
-socio java ee
+# persona
+personal model
