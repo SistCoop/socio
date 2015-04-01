@@ -2,8 +2,8 @@ package org.sistcoop.iso3166.models.mongo;
 
 import javax.persistence.EntityManager;
 
-import org.sistcoop.iso3166.models.CountryCodeModel;
 import org.sistcoop.iso3166.models.mongo.entities.CountryCodeEntity;
+import org.sistcoop.socio.models.CountryCodeModel;
 
 public class CountryCodeAdapter implements CountryCodeModel {
 

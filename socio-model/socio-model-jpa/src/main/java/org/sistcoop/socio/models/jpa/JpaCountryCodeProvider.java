@@ -1,4 +1,4 @@
-package org.sistcoop.iso3166.models.jpa;
+package org.sistcoop.socio.models.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.sistcoop.iso3166.models.CountryCodeModel;
-import org.sistcoop.iso3166.models.CountryCodeProvider;
-import org.sistcoop.iso3166.models.jpa.entities.CountryCodeEntity;
+import org.sistcoop.socio.models.CountryCodeModel;
+import org.sistcoop.socio.models.CountryCodeProvider;
+import org.sistcoop.socio.models.jpa.entities.CountryCodeEntity;
 
 @Named
 @Stateless

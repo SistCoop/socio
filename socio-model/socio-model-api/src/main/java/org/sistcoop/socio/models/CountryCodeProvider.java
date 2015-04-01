@@ -1,10 +1,10 @@
-package org.sistcoop.iso3166.models;
+package org.sistcoop.socio.models;
 
 import java.util.List;
 
 import javax.ejb.Local;
 
-import org.sistcoop.iso3166.provider.Provider;
+import org.sistcoop.socio.provider.Provider;
 
 @Local
 public interface CountryCodeProvider extends Provider {

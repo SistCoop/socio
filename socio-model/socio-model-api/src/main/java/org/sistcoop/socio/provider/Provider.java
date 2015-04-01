@@ -1,4 +1,4 @@
-package org.sistcoop.iso3166.provider;
+package org.sistcoop.socio.provider;
 
 /**
  * @author <a href="mailto:sthorger@redhat.com">Stian Thorgersen</a>

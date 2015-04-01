@@ -1,7 +1,7 @@
-package org.sistcoop.iso3166.models.utils;
+package org.sistcoop.socio.models.utils;
 
-import org.sistcoop.iso3166.models.CountryCodeModel;
 import org.sistcoop.iso3166.representations.idm.CountryCodeRepresentation;
+import org.sistcoop.socio.models.CountryCodeModel;
 
 public class ModelToRepresentation {
 

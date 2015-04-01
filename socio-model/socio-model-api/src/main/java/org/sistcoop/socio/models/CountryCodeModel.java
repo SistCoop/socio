@@ -1,4 +1,4 @@
-package org.sistcoop.iso3166.models;
+package org.sistcoop.socio.models;
 
 public interface CountryCodeModel extends Model {
 

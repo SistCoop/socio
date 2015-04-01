@@ -23,12 +23,12 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.sistcoop.iso3166.models.CountryCodeModel;
-import org.sistcoop.iso3166.models.CountryCodeProvider;
-import org.sistcoop.iso3166.models.jpa.CountryCodeAdapter;
-import org.sistcoop.iso3166.models.jpa.JpaCountryCodeProvider;
-import org.sistcoop.iso3166.models.jpa.entities.CountryCodeEntity;
-import org.sistcoop.iso3166.provider.Provider;
+import org.sistcoop.socio.models.CountryCodeModel;
+import org.sistcoop.socio.models.CountryCodeProvider;
+import org.sistcoop.socio.models.jpa.CountryCodeAdapter;
+import org.sistcoop.socio.models.jpa.JpaCountryCodeProvider;
+import org.sistcoop.socio.models.jpa.entities.CountryCodeEntity;
+import org.sistcoop.socio.provider.Provider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

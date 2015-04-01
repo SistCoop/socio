@@ -11,11 +11,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.sistcoop.iso3166.admin.client.resource.CountryCodesResource;
-import org.sistcoop.iso3166.models.CountryCodeModel;
-import org.sistcoop.iso3166.models.CountryCodeProvider;
-import org.sistcoop.iso3166.models.utils.ModelToRepresentation;
-import org.sistcoop.iso3166.models.utils.RepresentationToModel;
 import org.sistcoop.iso3166.representations.idm.CountryCodeRepresentation;
+import org.sistcoop.socio.models.CountryCodeModel;
+import org.sistcoop.socio.models.CountryCodeProvider;
+import org.sistcoop.socio.models.utils.ModelToRepresentation;
+import org.sistcoop.socio.models.utils.RepresentationToModel;
 
 @Stateless
 public class CountryCodesResourceImpl implements CountryCodesResource {

@@ -1,4 +1,4 @@
-package org.sistcoop.iso3166.models;
+package org.sistcoop.socio.models;
 
 import java.io.Serializable;
 

@@ -12,9 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.sistcoop.iso3166.models.CountryCodeModel;
-import org.sistcoop.iso3166.models.CountryCodeProvider;
 import org.sistcoop.iso3166.models.mongo.entities.CountryCodeEntity;
+import org.sistcoop.socio.models.CountryCodeModel;
+import org.sistcoop.socio.models.CountryCodeProvider;
 
 @Named
 @Stateless

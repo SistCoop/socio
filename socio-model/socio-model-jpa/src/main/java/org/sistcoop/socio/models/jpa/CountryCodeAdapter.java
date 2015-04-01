@@ -1,9 +1,9 @@
-package org.sistcoop.iso3166.models.jpa;
+package org.sistcoop.socio.models.jpa;
 
 import javax.persistence.EntityManager;
 
-import org.sistcoop.iso3166.models.CountryCodeModel;
-import org.sistcoop.iso3166.models.jpa.entities.CountryCodeEntity;
+import org.sistcoop.socio.models.CountryCodeModel;
+import org.sistcoop.socio.models.jpa.entities.CountryCodeEntity;
 
 public class CountryCodeAdapter implements CountryCodeModel {
 

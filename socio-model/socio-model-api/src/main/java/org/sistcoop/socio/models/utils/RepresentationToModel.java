@@ -1,12 +1,12 @@
-package org.sistcoop.iso3166.models.utils;
+package org.sistcoop.socio.models.utils;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import org.sistcoop.iso3166.models.CountryCodeModel;
-import org.sistcoop.iso3166.models.CountryCodeProvider;
 import org.sistcoop.iso3166.representations.idm.CountryCodeRepresentation;
+import org.sistcoop.socio.models.CountryCodeModel;
+import org.sistcoop.socio.models.CountryCodeProvider;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
