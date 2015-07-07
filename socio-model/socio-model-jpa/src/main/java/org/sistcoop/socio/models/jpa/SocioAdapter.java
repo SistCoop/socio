@@ -1,16 +1,17 @@
 package org.sistcoop.socio.models.jpa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import org.sistcoop.socio.models.AutorizadoModel;
 import org.sistcoop.socio.models.CuentaAporteModel;
 import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.enums.TipoPersona;
-import org.sistcoop.socio.models.jpa.entities.AutorizadoEntity;
+import org.sistcoop.socio.models.jpa.entities.CuentaPersonalEntity;
 import org.sistcoop.socio.models.jpa.entities.SocioEntity;
 
 public class SocioAdapter implements SocioModel {
@@ -41,99 +42,87 @@ public class SocioAdapter implements SocioModel {
 
 	@Override
 	public void commit() {
-		// TODO Auto-generated method stub
-		
+		this.em.merge(socioEntity);
 	}
 
 	@Override
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getId() {
+		return socioEntity.getId();
 	}
 
 	@Override
 	public TipoPersona getTipoPersona() {
-		// TODO Auto-generated method stub
-		return null;
+		return socioEntity.getTipoPersona();
 	}
 
 	@Override
 	public String getTipoDocumento() {
-		// TODO Auto-generated method stub
-		return null;
+		return socioEntity.getTipoDocumento();
 	}
 
 	@Override
 	public String getNumeroDocumento() {
-		// TODO Auto-generated method stub
-		return null;
+		return socioEntity.getNumeroDocumento();
 	}
 
 	@Override
 	public String getTipoDocumentoRepresentanteLegal() {
-		// TODO Auto-generated method stub
-		return null;
+		return socioEntity.getTipoDocumentoRepresentanteLegal();
 	}
 
 	@Override
-	public void setTipoDocumentoRepresentanteLegal() {
-		// TODO Auto-generated method stub
-		
+	public void setTipoDocumentoRepresentanteLegal(String tipoDocumentoRepresentanteLegal) {
+	    socioEntity.setTipoDocumentoRepresentanteLegal(tipoDocumentoRepresentanteLegal);
 	}
 
 	@Override
 	public String getNumeroDocumentoRepresentanteLegal() {
-		// TODO Auto-generated method stub
-		return null;
+		return socioEntity.getNumeroDocumentoRepresentanteLegal();
 	}
 
 	@Override
-	public void setNumeroDocumentoRepresentanteLegal() {
-		// TODO Auto-generated method stub
-		
+	public void setNumeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal) {
+	    socioEntity.setNumeroDocumentoRepresentanteLegal(numeroDocumentoRepresentanteLegal);
 	}
 
 	@Override
 	public Date getFechaInicio() {
-		// TODO Auto-generated method stub
-		return null;
+		return socioEntity.getFechaInicio();
 	}
 
 	@Override
 	public Date getFechaFin() {
-		// TODO Auto-generated method stub
-		return null;
+		return socioEntity.getFechaFin();
 	}
 
 	@Override
 	public void setFechaFin(Date fechaFin) {
-		// TODO Auto-generated method stub
-		
+	    socioEntity.setFechaFin(fechaFin);	
 	}
 
 	@Override
 	public boolean getEstado() {
-		// TODO Auto-generated method stub
-		return false;
+		return socioEntity.isEstado();
 	}
 
 	@Override
 	public void desactivar() {
-		// TODO Auto-generated method stub
-		
+	    socioEntity.setEstado(false);
 	}
 
 	@Override
 	public CuentaAporteModel getCuentaAporte() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CuentaAporteAdapter(em, socioEntity.getCuentaAporte());
 	}
 
 	@Override
 	public List<CuentaPersonalModel> getCuentasPersonales() {
-		// TODO Auto-generated method stub
-		return null;
+	    Set<CuentaPersonalEntity> cuentaPersonalEntities = socioEntity.getCuentasPersonales();
+	    List<CuentaPersonalModel> result = new ArrayList<>();
+	    for (CuentaPersonalEntity cuentaPersonalEntity : cuentaPersonalEntities) {
+	        result.add(new CuentaPersonalAdapter(em, cuentaPersonalEntity));
+        }
+	    return result;
 	}
-
 	
 }

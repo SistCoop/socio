@@ -8,17 +8,13 @@ import javax.persistence.EntityManager;
 
 import org.sistcoop.socio.models.AutorizadoModel;
 import org.sistcoop.socio.models.BeneficiarioModel;
-import org.sistcoop.socio.models.CuentaAporteModel;
 import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.CuentaPersonalTasaModel;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.TitularModel;
 import org.sistcoop.socio.models.enums.EstadoCuentaPersonal;
 import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
-import org.sistcoop.socio.models.enums.TipoPersona;
-import org.sistcoop.socio.models.jpa.entities.AutorizadoEntity;
 import org.sistcoop.socio.models.jpa.entities.CuentaPersonalEntity;
-import org.sistcoop.socio.models.jpa.entities.SocioEntity;
 
 public class CuentaPersonalAdapter implements CuentaPersonalModel {
 

@@ -7,34 +7,34 @@ import org.sistcoop.socio.models.enums.TipoPersona;
 
 public interface SocioModel extends Model {
 
-	Long getId();
+    String getId();
 
-	TipoPersona getTipoPersona();
+    TipoPersona getTipoPersona();
 
-	String getTipoDocumento();
+    String getTipoDocumento();
 
-	String getNumeroDocumento();
+    String getNumeroDocumento();
 
-	String getTipoDocumentoRepresentanteLegal();
+    String getTipoDocumentoRepresentanteLegal();
 
-	void setTipoDocumentoRepresentanteLegal();
+    void setTipoDocumentoRepresentanteLegal(String tipoDocumentoRepresentanteLegal);
 
-	String getNumeroDocumentoRepresentanteLegal();
+    String getNumeroDocumentoRepresentanteLegal();
 
-	void setNumeroDocumentoRepresentanteLegal();
+    void setNumeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal);
 
-	Date getFechaInicio();
+    Date getFechaInicio();
 
-	Date getFechaFin();
+    Date getFechaFin();
 
-	void setFechaFin(Date fechaFin);
+    void setFechaFin(Date fechaFin);
 
-	boolean getEstado();
+    boolean getEstado();
 
-	void desactivar();
+    void desactivar();
 
-	CuentaAporteModel getCuentaAporte();
+    CuentaAporteModel getCuentaAporte();
 
-	List<CuentaPersonalModel> getCuentasPersonales();
+    List<CuentaPersonalModel> getCuentasPersonales();
 
 }

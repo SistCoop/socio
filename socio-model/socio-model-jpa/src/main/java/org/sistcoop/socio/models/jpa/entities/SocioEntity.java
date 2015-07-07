@@ -13,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,192 +23,205 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.sistcoop.socio.models.enums.TipoPersona;
 
 @Entity
-@Table(name = "SOCIO", indexes = { @Index(columnList = "id") })
+@Table(name = "SOCIO")
 public class SocioEntity implements java.io.Serializable {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long id;
-	private TipoPersona tipoPersona;
-	private String tipoDocumento;
-	private String numeroDocumento;
-	private String tipoDocumentoRepresentanteLegal;
-	private String numeroDocumentoRepresentanteLegal;
+    private String id;
 
-	private Date fechaInicio;
-	private Date fechaFin;
-	private boolean estado;
+    private TipoPersona tipoPersona;
+    private String tipoDocumento;
+    private String numeroDocumento;
 
-	private CuentaAporteEntity cuentaAporte;
-	private Set<CuentaPersonalEntity> cuentasPersonales = new HashSet<CuentaPersonalEntity>();
+    /**
+     * El representante legal siempre es una persona natural
+     */
+    private String tipoDocumentoRepresentanteLegal;
+    private String numeroDocumentoRepresentanteLegal;
 
-	private Timestamp version;
+    private Date fechaInicio;
+    private Date fechaFin;
 
-	public SocioEntity() {
-	}
+    /**
+     * Si el estado es false significa que el socio ya no es socio de la
+     * institucion
+     */
+    private boolean estado;
 
-	@Id
-	@GeneratedValue(generator = "SgGenericGenerator")
-	public Long getId() {
-		return id;
-	}
+    private CuentaAporteEntity cuentaAporte;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private Set<CuentaPersonalEntity> cuentasPersonales = new HashSet<CuentaPersonalEntity>();
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	public TipoPersona getTipoPersona() {
-		return this.tipoPersona;
-	}
+    private Timestamp version;
 
-	public void setTipoPersona(TipoPersona tipoPersona) {
-		this.tipoPersona = tipoPersona;
-	}
+    public SocioEntity() {
+    }
 
-	@NotNull
-	@Size(min = 1, max = 20)
-	@NotEmpty
-	@NotBlank
-	public String getTipoDocumento() {
-		return this.tipoDocumento;
-	}
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "ID")
+    public String getId() {
+        return id;
+    }
 
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	@NotNull
-	@Size(min = 1, max = 20)
-	@NotEmpty
-	@NotBlank
-	public String getNumeroDocumento() {
-		return this.numeroDocumento;
-	}
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    public TipoPersona getTipoPersona() {
+        return this.tipoPersona;
+    }
 
-	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
-	}
+    public void setTipoPersona(TipoPersona tipoPersona) {
+        this.tipoPersona = tipoPersona;
+    }
 
-	@Size(min = 1, max = 20)
-	public String getTipoDocumentoRepresentanteLegal() {
-		return this.tipoDocumentoRepresentanteLegal;
-	}
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotEmpty
+    @NotBlank
+    public String getTipoDocumento() {
+        return this.tipoDocumento;
+    }
 
-	public void setTipoDocumentoRepresentanteLegal(String tipoDocumentoRepresentanteLegal) {
-		this.tipoDocumentoRepresentanteLegal = tipoDocumentoRepresentanteLegal;
-	}
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
 
-	@Size(min = 1, max = 20)
-	public String getNumeroDocumentoRepresentanteLegal() {
-		return this.numeroDocumentoRepresentanteLegal;
-	}
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotBlank
+    public String getNumeroDocumento() {
+        return this.numeroDocumento;
+    }
 
-	public void setNumeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal) {
-		this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
-	}
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
 
-	@NotNull
-	@Temporal(TemporalType.DATE)
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
+    @Size(min = 1, max = 20)
+    public String getTipoDocumentoRepresentanteLegal() {
+        return this.tipoDocumentoRepresentanteLegal;
+    }
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+    public void setTipoDocumentoRepresentanteLegal(String tipoDocumentoRepresentanteLegal) {
+        this.tipoDocumentoRepresentanteLegal = tipoDocumentoRepresentanteLegal;
+    }
 
-	@Temporal(TemporalType.DATE)
-	public Date getFechaFin() {
-		return fechaFin;
-	}
+    @Size(min = 1, max = 20)
+    public String getNumeroDocumentoRepresentanteLegal() {
+        return this.numeroDocumentoRepresentanteLegal;
+    }
 
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
+    public void setNumeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal) {
+        this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
+    }
 
-	@NotNull
-	@Type(type = "org.hibernate.type.TrueFalseType")
-	@Column(name = "ESTADO")
-	public boolean isEstado() {
-		return estado;
-	}
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
 
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-	@NotNull
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey)
-	public CuentaAporteEntity getCuentaAporte() {
-		return cuentaAporte;
-	}
+    @Temporal(TemporalType.DATE)
+    public Date getFechaFin() {
+        return fechaFin;
+    }
 
-	public void setCuentaAporte(CuentaAporteEntity cuentaAporte) {
-		this.cuentaAporte = cuentaAporte;
-	}
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
-	@OneToMany(mappedBy = "socio", fetch = FetchType.LAZY)
-	public Set<CuentaPersonalEntity> getCuentasPersonales() {
-		return cuentasPersonales;
-	}
+    @NotNull
+    @Type(type = "org.hibernate.type.TrueFalseType")
+    @Column(name = "ESTADO")
+    public boolean isEstado() {
+        return estado;
+    }
 
-	public void setCuentasPersonales(Set<CuentaPersonalEntity> cuentasPersonales) {
-		this.cuentasPersonales = cuentasPersonales;
-	}
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 
-	@Version
-	public Timestamp getVersion() {
-		return version;
-	}
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey)
+    public CuentaAporteEntity getCuentaAporte() {
+        return cuentaAporte;
+    }
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
-	}
+    public void setCuentaAporte(CuentaAporteEntity cuentaAporte) {
+        this.cuentaAporte = cuentaAporte;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((numeroDocumento == null) ? 0 : numeroDocumento.hashCode());
-		result = prime * result + ((tipoDocumento == null) ? 0 : tipoDocumento.hashCode());
-		result = prime * result + ((tipoPersona == null) ? 0 : tipoPersona.hashCode());
-		return result;
-	}
+    @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY)
+    public Set<CuentaPersonalEntity> getCuentasPersonales() {
+        return cuentasPersonales;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof SocioEntity))
-			return false;
-		SocioEntity other = (SocioEntity) obj;
-		if (numeroDocumento == null) {
-			if (other.numeroDocumento != null)
-				return false;
-		} else if (!numeroDocumento.equals(other.numeroDocumento))
-			return false;
-		if (tipoDocumento == null) {
-			if (other.tipoDocumento != null)
-				return false;
-		} else if (!tipoDocumento.equals(other.tipoDocumento))
-			return false;
-		if (tipoPersona != other.tipoPersona)
-			return false;
-		return true;
-	}
+    public void setCuentasPersonales(Set<CuentaPersonalEntity> cuentasPersonales) {
+        this.cuentasPersonales = cuentasPersonales;
+    }
+
+    @Version
+    public Timestamp getVersion() {
+        return version;
+    }
+
+    public void setVersion(Timestamp version) {
+        this.version = version;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((numeroDocumento == null) ? 0 : numeroDocumento.hashCode());
+        result = prime * result + ((tipoDocumento == null) ? 0 : tipoDocumento.hashCode());
+        result = prime * result + ((tipoPersona == null) ? 0 : tipoPersona.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof SocioEntity))
+            return false;
+        SocioEntity other = (SocioEntity) obj;
+        if (numeroDocumento == null) {
+            if (other.numeroDocumento != null)
+                return false;
+        } else if (!numeroDocumento.equals(other.numeroDocumento))
+            return false;
+        if (tipoDocumento == null) {
+            if (other.tipoDocumento != null)
+                return false;
+        } else if (!tipoDocumento.equals(other.tipoDocumento))
+            return false;
+        if (tipoPersona != other.tipoPersona)
+            return false;
+        return true;
+    }
 
 }

@@ -13,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,7 +33,7 @@ import org.sistcoop.socio.models.enums.EstadoCuentaPersonal;
 import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
 
 @Entity
-@Table(name = "CUENTA_PERSONAL", indexes = { @Index(columnList = "id") })
+@Table(name = "CUENTA_PERSONAL")
 public class CuentaPersonalEntity implements java.io.Serializable {
 
 	/**
