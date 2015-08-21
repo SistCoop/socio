@@ -1,5 +1,3 @@
 dependencies {
-	compile project(':socio-core')
-			
-	compile group: 'javax.ejb', name: 'javax.ejb-api', version: '3.2'	
+    compile project(":socio-core")
 }
