@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +16,8 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,53 +29,81 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.sistcoop.socio.models.enums.TipoPersona;
 
+@Audited
+@Cacheable
 @Entity
 @Table(name = "SOCIO")
+@NamedQueries(value = { @NamedQuery(name = "SocioEntity.findAll", query = "SELECT s FROM SocioEntity s") })
 public class SocioEntity implements java.io.Serializable {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
-
-    private String id;
-
-    private TipoPersona tipoPersona;
-    private String tipoDocumento;
-    private String numeroDocumento;
-
-    /**
-     * El representante legal siempre es una persona natural
-     */
-    private String tipoDocumentoRepresentanteLegal;
-    private String numeroDocumentoRepresentanteLegal;
-
-    private Date fechaInicio;
-    private Date fechaFin;
-
-    /**
-     * Si el estado es false significa que el socio ya no es socio de la
-     * institucion
-     */
-    private boolean estado;
-
-    private CuentaAporteEntity cuentaAporte;
-
-    private Set<CuentaPersonalEntity> cuentasPersonales = new HashSet<CuentaPersonalEntity>();
-
-    private Timestamp version;
-
-    public SocioEntity() {
-    }
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "ID")
+    private String id;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TIPO_PERSONA")
+    private TipoPersona tipoPersona;
+
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotBlank
+    @Column(name = "TIPO_DOCUMENTO")
+    private String tipoDocumento;
+
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotBlank
+    @Column(name = "NUMERO_DOCUMENTO")
+    private String numeroDocumento;
+
+    /**
+     * El representante legal siempre es una persona natural
+     */
+    @Size(min = 1, max = 20)
+    @Column(name = "TIPO_DOCUMENTO_REPRESENTANTE_LEGAL")
+    private String tipoDocumentoRepresentanteLegal;
+
+    @Size(min = 1, max = 20)
+    @Column(name = "NUMERO_DOCUMENTO_REPRESENTANTE_LEGAL")
+    private String numeroDocumentoRepresentanteLegal;
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA_INICIO")
+    private Date fechaInicio;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA_FIN")
+    private Date fechaFin;
+
+    @NotNull
+    @Type(type = "org.hibernate.type.TrueFalseType")
+    @Column(name = "ESTADO")
+    private boolean estado;
+
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
+    @JoinColumn(foreignKey = @ForeignKey, name = "CUENTA_APORTE_ID")
+    private CuentaAporteEntity cuentaAporte;
+
+    @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ComisionSocioAsignadaEntity> comisiones = new HashSet<ComisionSocioAsignadaEntity>();
+
+    @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY)
+    private Set<CuentaPersonalEntity> cuentasPersonales = new HashSet<CuentaPersonalEntity>();
+
+    @Version
+    private Timestamp optlk;
+
     public String getId() {
         return id;
     }
@@ -80,8 +112,6 @@ public class SocioEntity implements java.io.Serializable {
         this.id = id;
     }
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
     public TipoPersona getTipoPersona() {
         return this.tipoPersona;
     }
@@ -90,10 +120,6 @@ public class SocioEntity implements java.io.Serializable {
         this.tipoPersona = tipoPersona;
     }
 
-    @NotNull
-    @Size(min = 1, max = 20)
-    @NotEmpty
-    @NotBlank
     public String getTipoDocumento() {
         return this.tipoDocumento;
     }
@@ -102,9 +128,6 @@ public class SocioEntity implements java.io.Serializable {
         this.tipoDocumento = tipoDocumento;
     }
 
-    @NotNull
-    @Size(min = 1, max = 20)
-    @NotBlank
     public String getNumeroDocumento() {
         return this.numeroDocumento;
     }
@@ -113,7 +136,6 @@ public class SocioEntity implements java.io.Serializable {
         this.numeroDocumento = numeroDocumento;
     }
 
-    @Size(min = 1, max = 20)
     public String getTipoDocumentoRepresentanteLegal() {
         return this.tipoDocumentoRepresentanteLegal;
     }
@@ -122,7 +144,6 @@ public class SocioEntity implements java.io.Serializable {
         this.tipoDocumentoRepresentanteLegal = tipoDocumentoRepresentanteLegal;
     }
 
-    @Size(min = 1, max = 20)
     public String getNumeroDocumentoRepresentanteLegal() {
         return this.numeroDocumentoRepresentanteLegal;
     }
@@ -131,8 +152,6 @@ public class SocioEntity implements java.io.Serializable {
         this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
     }
 
-    @NotNull
-    @Temporal(TemporalType.DATE)
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -141,7 +160,6 @@ public class SocioEntity implements java.io.Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    @Temporal(TemporalType.DATE)
     public Date getFechaFin() {
         return fechaFin;
     }
@@ -150,9 +168,6 @@ public class SocioEntity implements java.io.Serializable {
         this.fechaFin = fechaFin;
     }
 
-    @NotNull
-    @Type(type = "org.hibernate.type.TrueFalseType")
-    @Column(name = "ESTADO")
     public boolean isEstado() {
         return estado;
     }
@@ -161,9 +176,6 @@ public class SocioEntity implements java.io.Serializable {
         this.estado = estado;
     }
 
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey)
     public CuentaAporteEntity getCuentaAporte() {
         return cuentaAporte;
     }
@@ -172,7 +184,14 @@ public class SocioEntity implements java.io.Serializable {
         this.cuentaAporte = cuentaAporte;
     }
 
-    @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY)
+    public Set<ComisionSocioAsignadaEntity> getComisiones() {
+        return comisiones;
+    }
+
+    public void setComisione(Set<ComisionSocioAsignadaEntity> comisiones) {
+        this.comisiones = comisiones;
+    }
+
     public Set<CuentaPersonalEntity> getCuentasPersonales() {
         return cuentasPersonales;
     }
@@ -181,22 +200,19 @@ public class SocioEntity implements java.io.Serializable {
         this.cuentasPersonales = cuentasPersonales;
     }
 
-    @Version
-    public Timestamp getVersion() {
-        return version;
+    public Timestamp getOptlk() {
+        return optlk;
     }
 
-    public void setVersion(Timestamp version) {
-        this.version = version;
+    public void setOptlk(Timestamp optlk) {
+        this.optlk = optlk;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((numeroDocumento == null) ? 0 : numeroDocumento.hashCode());
-        result = prime * result + ((tipoDocumento == null) ? 0 : tipoDocumento.hashCode());
-        result = prime * result + ((tipoPersona == null) ? 0 : tipoPersona.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -206,20 +222,13 @@ public class SocioEntity implements java.io.Serializable {
             return true;
         if (obj == null)
             return false;
-        if (!(obj instanceof SocioEntity))
+        if (getClass() != obj.getClass())
             return false;
         SocioEntity other = (SocioEntity) obj;
-        if (numeroDocumento == null) {
-            if (other.numeroDocumento != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!numeroDocumento.equals(other.numeroDocumento))
-            return false;
-        if (tipoDocumento == null) {
-            if (other.tipoDocumento != null)
-                return false;
-        } else if (!tipoDocumento.equals(other.tipoDocumento))
-            return false;
-        if (tipoPersona != other.tipoPersona)
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }

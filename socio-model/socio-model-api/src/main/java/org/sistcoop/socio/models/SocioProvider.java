@@ -5,31 +5,25 @@ import java.util.List;
 import javax.ejb.Local;
 
 import org.sistcoop.socio.models.enums.TipoPersona;
+import org.sistcoop.socio.models.search.SearchCriteriaModel;
+import org.sistcoop.socio.models.search.SearchResultsModel;
 import org.sistcoop.socio.provider.Provider;
 
 @Local
 public interface SocioProvider extends Provider {
 
-	SocioModel addSocio(
-			TipoPersona tipoPersona, 
-			String tipoDocumento, 
-			String numeroDocumento, 
-			String tipoDocumentoRepresentanteLegal);
+    SocioModel create(TipoPersona tipoPersona, String tipoDocumento, String numeroDocumento);
 
-	boolean removeSocio(SocioModel socioModel);
+    boolean remove(SocioModel socioModel);
 
-	SocioModel getSocioById(Long id);
+    SocioModel findById(String id);
 
-	SocioModel getSocioByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento);
+    SocioModel findByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento);
 
-	int getSociosCount();
+    List<SocioModel> findAll();
 
-	List<SocioModel> getSocios();
+    SearchResultsModel<SocioModel> search(SearchCriteriaModel searchCriteriaBean);
 
-	List<SocioModel> getSocios(String filterText);
-
-	List<SocioModel> getSocios(int firstResult, int maxResults);
-
-	List<SocioModel> getSocios(String filterText, int firstResult, int maxResults);
+    SearchResultsModel<SocioModel> search(SearchCriteriaModel searchCriteriaBean, String FfilterText);
 
 }

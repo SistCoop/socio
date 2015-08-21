@@ -1,82 +1,61 @@
 package org.sistcoop.socio.services.resources.admin;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.PathParam;
 
 import org.sistcoop.socio.admin.client.resource.SocioResource;
+import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
-import org.sistcoop.socio.models.utils.RepresentationToModel;
+import org.sistcoop.socio.models.utils.ModelToRepresentation;
 import org.sistcoop.socio.representations.idm.SocioRepresentation;
+import org.sistcoop.socio.services.managers.SocioManager;
 
 @Stateless
 public class SocioResourceImpl implements SocioResource {
 
-	@Inject
-	private SocioProvider socioProvider;
+    @PathParam("socio")
+    private String socio;
 
-	@Inject
-	private RepresentationToModel representationToModel;
+    @Inject
+    private SocioProvider socioProvider;
 
-	@Context
-	private UriInfo uriInfo;
+    @Inject
+    private SocioManager socioManager;
 
-	@Override
-	public SocioRepresentation findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private SocioModel getSocioModel() {
+        return socioProvider.findById(socio);
+    }
 
-	@Override
-	public SocioRepresentation findByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public SocioRepresentation socio() {
+        SocioRepresentation rep = ModelToRepresentation.toRepresentation(getSocioModel());
+        if (rep != null) {
+            return rep;
+        } else {
+            throw new NotFoundException();
+        }
+    }
 
-	@Override
-	public Response create(SocioRepresentation socioRepresentation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void update(SocioRepresentation representation) {
+        socioManager.update(getSocioModel(), representation);
+    }
 
-	@Override
-	public void updateById(Long id, SocioRepresentation socioRepresentation) {
-		// TODO Auto-generated method stub
+    @Override
+    public void enable() {
+        throw new NotFoundException();
+    }
 
-	}
+    @Override
+    public void disable() {
+        socioManager.disable(getSocioModel());
+    }
 
-	@Override
-	public void updateByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento, SocioRepresentation socioRepresentation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeById(Long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<SocioRepresentation> listAll(String filterText, Integer firstResult, Integer maxResults) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int countAll() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void remove() {
+        throw new NotFoundException();
+    }
 
 }

@@ -1,38 +1,33 @@
 package org.sistcoop.socio.models.jpa.entities;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
-import org.sistcoop.socio.models.enums.EstadoCuentaAporte;
 
 @Audited
 @Cacheable
 @Entity
-@Table(name = "CUENTA_APORTE")
-public class CuentaAporteEntity implements java.io.Serializable {
+@Table(name = "CUENTA_APORTE_MONEDA")
+@NamedQueries(value = {
+        @NamedQuery(name = "CuentaAporteMonedaEntity.findAll", query = "SELECT c FROM CuentaAporteMonedaEntity c"),
+        @NamedQuery(name = "CuentaAporteMonedaEntity.findByEstado", query = "SELECT c FROM CuentaAporteMonedaEntity c WHERE c.estado =:estado") })
+public class CuentaAporteMonedaEntity implements java.io.Serializable {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -42,32 +37,15 @@ public class CuentaAporteEntity implements java.io.Serializable {
     private String id;
 
     @NotNull
-    @Size(min = 1, max = 20)
     @NotBlank
-    @Column(name = "NUMERO_CUENTA")
-    private String numeroCuenta;
-
-    @NotNull
-    @Min(value = 0)
-    @Digits(integer = 18, fraction = 2)
-    @Column(name = "SALDO")
-    private BigDecimal saldo;
-
-    @NotNull
     @Size(min = 1, max = 3)
-    @NotBlank
     @Column(name = "MONEDA")
     private String moneda;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @Type(type = "org.hibernate.type.TrueFalseType")
     @Column(name = "ESTADO")
-    private EstadoCuentaAporte estado;
-
-    @NotNull
-    @OneToOne(mappedBy = "cuentaAporte", fetch = FetchType.LAZY)
-    @Column(name = "SOCIO_ID")
-    private SocioEntity socio;
+    private boolean estado;
 
     @Version
     private Timestamp optlk;
@@ -80,22 +58,6 @@ public class CuentaAporteEntity implements java.io.Serializable {
         this.id = id;
     }
 
-    public String getNumeroCuenta() {
-        return numeroCuenta;
-    }
-
-    public void setNumeroCuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
-
-    public BigDecimal getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(BigDecimal saldo) {
-        this.saldo = saldo;
-    }
-
     public String getMoneda() {
         return moneda;
     }
@@ -104,20 +66,12 @@ public class CuentaAporteEntity implements java.io.Serializable {
         this.moneda = moneda;
     }
 
-    public EstadoCuentaAporte getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoCuentaAporte estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-
-    public SocioEntity getSocio() {
-        return socio;
-    }
-
-    public void setSocio(SocioEntity socio) {
-        this.socio = socio;
     }
 
     public Timestamp getOptlk() {
@@ -132,7 +86,7 @@ public class CuentaAporteEntity implements java.io.Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((numeroCuenta == null) ? 0 : numeroCuenta.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -144,11 +98,11 @@ public class CuentaAporteEntity implements java.io.Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CuentaAporteEntity other = (CuentaAporteEntity) obj;
-        if (numeroCuenta == null) {
-            if (other.numeroCuenta != null)
+        CuentaAporteMonedaEntity other = (CuentaAporteMonedaEntity) obj;
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!numeroCuenta.equals(other.numeroCuenta))
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }
