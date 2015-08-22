@@ -1,6 +1,7 @@
 package org.sistcoop.socio.models.jpa;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.persistence.TypedQuery;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
 import org.sistcoop.socio.models.enums.EstadoCuentaAporte;
+import org.sistcoop.socio.models.enums.Frecuencia;
 import org.sistcoop.socio.models.enums.TipoPersona;
 import org.sistcoop.socio.models.jpa.entities.ComisionSocioAsignadaEntity;
 import org.sistcoop.socio.models.jpa.entities.ComisionSocioEntity;
@@ -61,6 +63,13 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
         queryComisiones.setParameter("estado", true);
         List<ComisionSocioEntity> resultComisiones = queryComisiones.getResultList();
 
+        List<ComisionSocioEntity> resultComisionesDeInicio = new ArrayList<ComisionSocioEntity>();
+        for (ComisionSocioEntity comisionSocioEntity : resultComisiones) {
+            if (comisionSocioEntity.getFrecuencia().equals(Frecuencia.UNICO_INICIO)) {
+                resultComisionesDeInicio.add(comisionSocioEntity);
+            }
+        }
+
         // Crear
         Set<ComisionSocioAsignadaEntity> comisiones = new HashSet<>();
         for (ComisionSocioEntity comisionProgramada : resultComisiones) {
@@ -75,7 +84,7 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
 
         CuentaAporteEntity cuentaAporteEntity = new CuentaAporteEntity();
         // POR_ACTIVAR hasta que pague las comisiones
-        cuentaAporteEntity.setEstado(resultComisiones.isEmpty() ? EstadoCuentaAporte.ACTIVO
+        cuentaAporteEntity.setEstado(resultComisionesDeInicio.isEmpty() ? EstadoCuentaAporte.ACTIVO
                 : EstadoCuentaAporte.POR_ACTIVAR);
         cuentaAporteEntity.setMoneda(cuentaAporteMonedaEntity.getMoneda());
         cuentaAporteEntity.setNumeroCuenta("");
@@ -87,7 +96,7 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
         socioEntity.setNumeroDocumento(numeroDocumento);
         socioEntity.setFechaInicio(Calendar.getInstance().getTime());
         // No es considerado socio hasta que pague las comisiones
-        socioEntity.setEstado(resultComisiones.isEmpty() ? true : false);
+        socioEntity.setEstado(resultComisionesDeInicio.isEmpty() ? true : false);
         socioEntity.setCuentaAporte(cuentaAporteEntity);
         socioEntity.setComisione(comisiones);
 
