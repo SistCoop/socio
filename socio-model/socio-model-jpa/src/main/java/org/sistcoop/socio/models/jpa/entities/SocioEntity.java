@@ -98,7 +98,7 @@ public class SocioEntity implements java.io.Serializable {
     @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<ComisionSocioAsignadaEntity> comisiones = new HashSet<ComisionSocioAsignadaEntity>();
 
-    @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<CuentaPersonalEntity> cuentasPersonales = new HashSet<CuentaPersonalEntity>();
 
     @Version
