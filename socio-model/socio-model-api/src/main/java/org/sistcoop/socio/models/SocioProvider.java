@@ -18,8 +18,6 @@ public interface SocioProvider extends Provider {
 
     SocioModel findById(String id);
 
-    SocioModel findByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento);
-
     List<SocioModel> findAll();
 
     SearchResultsModel<SocioModel> search(SearchCriteriaModel searchCriteriaBean);

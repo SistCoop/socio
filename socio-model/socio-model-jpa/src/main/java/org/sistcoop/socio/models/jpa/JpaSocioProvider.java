@@ -106,38 +106,58 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
 
     @Override
     public boolean remove(SocioModel socioModel) {
-        // TODO Auto-generated method stub
-        return false;
+        SocioEntity socioEntity = em.find(SocioEntity.class, socioModel.getId());
+        if (socioEntity == null) {
+            return false;
+        }
+        em.remove(socioEntity);
+        return true;
     }
 
     @Override
     public SocioModel findById(String id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public SocioModel findByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento) {
-        // TODO Auto-generated method stub
-        return null;
+        SocioEntity socioEntity = this.em.find(SocioEntity.class, id);
+        return socioEntity != null ? new SocioAdapter(em, socioEntity) : null;
     }
 
     @Override
     public List<SocioModel> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        TypedQuery<SocioEntity> query = em.createNamedQuery("SocioEntity.findAll", SocioEntity.class);
+        List<SocioEntity> list = query.getResultList();
+        List<SocioModel> result = new ArrayList<>();
+        for (SocioEntity entity : list) {
+            result.add(new SocioAdapter(em, entity));
+        }
+        return result;
     }
 
     @Override
-    public SearchResultsModel<SocioModel> search(SearchCriteriaModel searchCriteriaBean) {
-        // TODO Auto-generated method stub
-        return null;
+    public SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria) {
+        SearchResultsModel<SocioEntity> entityResult = find(criteria, SocioEntity.class);
+
+        SearchResultsModel<SocioModel> modelResult = new SearchResultsModel<>();
+        List<SocioModel> list = new ArrayList<>();
+        for (SocioEntity entity : entityResult.getModels()) {
+            list.add(new SocioAdapter(em, entity));
+        }
+        modelResult.setTotalSize(entityResult.getTotalSize());
+        modelResult.setModels(list);
+        return modelResult;
     }
 
     @Override
-    public SearchResultsModel<SocioModel> search(SearchCriteriaModel searchCriteriaBean, String FfilterText) {
-        // TODO Auto-generated method stub
-        return null;
+    public SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria, String filterText) {
+        SearchResultsModel<SocioEntity> entityResult = findFullText(criteria, SocioEntity.class, filterText,
+                "tipoDocumento", "numeroDocumento");
+
+        SearchResultsModel<SocioModel> modelResult = new SearchResultsModel<>();
+        List<SocioModel> list = new ArrayList<>();
+        for (SocioEntity entity : entityResult.getModels()) {
+            list.add(new SocioAdapter(em, entity));
+        }
+        modelResult.setTotalSize(entityResult.getTotalSize());
+        modelResult.setModels(list);
+        return modelResult;
     }
 
 }
