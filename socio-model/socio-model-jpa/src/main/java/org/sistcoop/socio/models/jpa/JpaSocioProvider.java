@@ -74,7 +74,7 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
         }
 
         CuentaAporteEntity cuentaAporteEntity = new CuentaAporteEntity();
-        // POR_ACTIVAR hasta que pague las comisiones
+        // POR_ACTIVAR hasta que pague las comisionesadmin
         cuentaAporteEntity.setEstado(resultComisiones.isEmpty() ? EstadoCuentaAporte.ACTIVO
                 : EstadoCuentaAporte.POR_ACTIVAR);
         cuentaAporteEntity.setMoneda(cuentaAporteMonedaEntity.getMoneda());
