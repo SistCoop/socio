@@ -25,6 +25,7 @@ import org.sistcoop.socio.models.jpa.entities.ComisionSocioAsignadaEntity;
 import org.sistcoop.socio.models.jpa.entities.ComisionSocioEntity;
 import org.sistcoop.socio.models.jpa.entities.CuentaAporteEntity;
 import org.sistcoop.socio.models.jpa.entities.CuentaAporteMonedaEntity;
+import org.sistcoop.socio.models.jpa.entities.NumeroCuentaAporteEntity;
 import org.sistcoop.socio.models.jpa.entities.SocioEntity;
 import org.sistcoop.socio.models.search.SearchCriteriaModel;
 import org.sistcoop.socio.models.search.SearchResultsModel;
@@ -82,12 +83,12 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
             comisiones.add(comisionAsignada);
         }
 
+        NumeroCuentaAporteEntity numeroCuentaAporteEntity = new NumeroCuentaAporteEntity();
         CuentaAporteEntity cuentaAporteEntity = new CuentaAporteEntity();
-        // POR_ACTIVAR hasta que pague las comisiones
         cuentaAporteEntity.setEstado(resultComisionesDeInicio.isEmpty() ? EstadoCuentaAporte.ACTIVO
                 : EstadoCuentaAporte.POR_ACTIVAR);
         cuentaAporteEntity.setMoneda(cuentaAporteMonedaEntity.getMoneda());
-        cuentaAporteEntity.setNumeroCuenta("");
+        cuentaAporteEntity.setNumeroCuenta(numeroCuentaAporteEntity);
         cuentaAporteEntity.setSaldo(BigDecimal.ZERO);
 
         SocioEntity socioEntity = new SocioEntity();
@@ -95,7 +96,6 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
         socioEntity.setTipoDocumento(tipoDocumento);
         socioEntity.setNumeroDocumento(numeroDocumento);
         socioEntity.setFechaInicio(Calendar.getInstance().getTime());
-        // No es considerado socio hasta que pague las comisiones
         socioEntity.setEstado(resultComisionesDeInicio.isEmpty() ? true : false);
         socioEntity.setCuentaAporte(cuentaAporteEntity);
         socioEntity.setComisione(comisiones);

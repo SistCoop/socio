@@ -5,22 +5,18 @@ import org.sistcoop.socio.models.enums.EstadoCuentaAporte;
 
 public interface CuentaAporteModel extends Model {
 
-	Long getId();
+    String getId();
 
-	String getNumeroCuenta();
+    String getNumeroCuenta();
 
-	BigDecimal getSaldo();
+    BigDecimal getSaldo();
 
-	void setSaldo(BigDecimal saldo);
+    void setSaldo(BigDecimal saldo);
 
-	String getMoneda();
+    String getMoneda();
 
-	void setMoneda();
+    EstadoCuentaAporte getEstado();
 
-	EstadoCuentaAporte getEstadoCuenta();
-
-	void setEstadoCuenta(EstadoCuentaAporte estadoCuenta);
-
-	SocioModel getSocio();
+    void setEstado(EstadoCuentaAporte estadoCuenta);
 
 }
