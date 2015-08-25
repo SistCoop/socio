@@ -4,13 +4,16 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -42,10 +45,9 @@ public class CuentaAporteEntity implements java.io.Serializable {
     private String id;
 
     @NotNull
-    @Size(min = 1, max = 20)
-    @NotBlank
-    @Column(name = "NUMERO_CUENTA")
-    private String numeroCuenta;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
+    @JoinColumn(foreignKey = @ForeignKey, name = "NUMERO_CUENTA")
+    private NumeroCuentaAporteEntity numeroCuenta;
 
     @NotNull
     @Min(value = 0)
@@ -64,11 +66,6 @@ public class CuentaAporteEntity implements java.io.Serializable {
     @Column(name = "ESTADO")
     private EstadoCuentaAporte estado;
 
-    @NotNull
-    @OneToOne(mappedBy = "cuentaAporte", fetch = FetchType.LAZY)
-    @Column(name = "SOCIO_ID")
-    private SocioEntity socio;
-
     @Version
     private Timestamp optlk;
 
@@ -80,11 +77,11 @@ public class CuentaAporteEntity implements java.io.Serializable {
         this.id = id;
     }
 
-    public String getNumeroCuenta() {
+    public NumeroCuentaAporteEntity getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(String numeroCuenta) {
+    public void setNumeroCuenta(NumeroCuentaAporteEntity numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
@@ -110,14 +107,6 @@ public class CuentaAporteEntity implements java.io.Serializable {
 
     public void setEstado(EstadoCuentaAporte estado) {
         this.estado = estado;
-    }
-
-    public SocioEntity getSocio() {
-        return socio;
-    }
-
-    public void setSocio(SocioEntity socio) {
-        this.socio = socio;
     }
 
     public Timestamp getOptlk() {
