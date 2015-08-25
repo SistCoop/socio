@@ -9,38 +9,38 @@ import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
 
 public interface CuentaPersonalModel extends Model {
 
-	Long getId();
+    String getId();
 
-	TipoCuentaPersonal getTipoCuenta();
+    TipoCuentaPersonal getTipoCuenta();
 
-	String getNumeroCuenta();
+    String getNumeroCuenta();
 
-	String getMoneda();
+    String getMoneda();
 
-	Date getFechaApertura();
+    Date getFechaApertura();
 
-	Date getFechaCierre();
+    Date getFechaCierre();
 
-	void setFechaCierre(Date fechaCierre);
+    void setFechaCierre(Date fechaCierre);
 
-	BigDecimal getSaldo();
+    BigDecimal getSaldo();
 
-	void setSaldo(BigDecimal saldo);
+    void setSaldo(BigDecimal saldo);
 
-	int getCantidadRetirantes();
+    int getCantidadRetirantes();
 
-	EstadoCuentaPersonal getEstadoCuenta();
+    EstadoCuentaPersonal getEstadoCuenta();
 
-	void setEstadoCuenta(EstadoCuentaPersonal estadoCuenta);
+    void setEstadoCuenta(EstadoCuentaPersonal estadoCuenta);
 
-	SocioModel getSocio();
+    SocioModel getSocio();
 
-	List<TitularModel> getTitulares();
+    List<TitularModel> getTitulares();
 
-	List<AutorizadoModel> getAutorizados();
+    List<AutorizadoModel> getAutorizados();
 
-	List<BeneficiarioModel> getBeneficiarios();
+    List<BeneficiarioModel> getBeneficiarios();
 
-	List<CuentaPersonalTasaModel> getTasas();
+    List<CuentaPersonalTasaModel> getTasas();
 
 }

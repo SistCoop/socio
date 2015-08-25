@@ -4,9 +4,13 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.sistcoop.socio.models.CuentaPersonalModel;
+import org.sistcoop.socio.models.CuentaPersonalProvider;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
+import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
 import org.sistcoop.socio.models.enums.TipoPersona;
+import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
 import org.sistcoop.socio.representations.idm.SocioRepresentation;
 
 @Stateless
@@ -18,5 +22,12 @@ public class RepresentationToModel {
                 rep.getTipoDocumento(), rep.getNumeroDocumento());
         return socioModel;
     }
-    
+
+    public CuentaPersonalModel createCuentaPersonal(CuentaPersonalRepresentation rep, SocioModel socioModel,
+            CuentaPersonalProvider cuentaPersonalProvider) {
+        CuentaPersonalModel model = cuentaPersonalProvider.create(socioModel,
+                TipoCuentaPersonal.valueOf(rep.getTipoCuenta().toUpperCase()), rep.getMoneda(),
+                rep.getCantidadRetirantes());
+        return model;
+    }
 }

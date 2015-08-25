@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.PathParam;
 
+import org.sistcoop.socio.admin.client.resource.CuentasPersonalesResource;
 import org.sistcoop.socio.admin.client.resource.SocioResource;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
@@ -23,6 +24,9 @@ public class SocioResourceImpl implements SocioResource {
 
     @Inject
     private SocioManager socioManager;
+
+    @Inject
+    private CuentasPersonalesResource cuentasPersonalesResource;
 
     private SocioModel getSocioModel() {
         return socioProvider.findById(socio);
@@ -56,6 +60,11 @@ public class SocioResourceImpl implements SocioResource {
     @Override
     public void remove() {
         throw new NotFoundException();
+    }
+
+    @Override
+    public CuentasPersonalesResource cuentasPersonales() {
+        return cuentasPersonalesResource;
     }
 
 }

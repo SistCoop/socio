@@ -9,17 +9,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.sistcoop.socio.representations.idm.SocioRepresentation;
+import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
 
-public interface SocioResource {
+public interface CuentaPersonalResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public SocioRepresentation socio();
+    public CuentaPersonalRepresentation cuentaPersonal();
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(SocioRepresentation representation);
+    public void update(CuentaPersonalRepresentation representation);
 
     @POST
     @Path("enable")
@@ -31,8 +31,5 @@ public interface SocioResource {
 
     @DELETE
     public void remove();
-
-    @Path("cuentasPersonales")
-    public CuentasPersonalesResource cuentasPersonales();
 
 }
