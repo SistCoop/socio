@@ -17,6 +17,8 @@ import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.CuentaPersonalProvider;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
+import org.sistcoop.socio.models.TasaCuentaPersonalProvider;
+import org.sistcoop.socio.models.TitularProvider;
 import org.sistcoop.socio.models.search.PagingModel;
 import org.sistcoop.socio.models.search.SearchCriteriaFilterOperator;
 import org.sistcoop.socio.models.search.SearchCriteriaModel;
@@ -36,10 +38,16 @@ public class CuentasPersonalesResourceImpl implements CuentasPersonalesResource 
     private SocioProvider socioProvider;
 
     @Inject
-    private RepresentationToModel representationToModel;
+    private CuentaPersonalProvider cuentaPersonalProvider;
 
     @Inject
-    private CuentaPersonalProvider cuentaPersonalProvider;
+    private TitularProvider titularProvider;
+
+    @Inject
+    private TasaCuentaPersonalProvider tasaCuentaPersonalProvider;
+
+    @Inject
+    private RepresentationToModel representationToModel;
 
     @Inject
     private CuentaPersonalResource cuentaPersonalResource;
@@ -59,7 +67,7 @@ public class CuentasPersonalesResourceImpl implements CuentasPersonalesResource 
     @Override
     public Response create(CuentaPersonalRepresentation representation) {
         CuentaPersonalModel model = representationToModel.createCuentaPersonal(representation,
-                getSocioModel(), cuentaPersonalProvider);
+                getSocioModel(), cuentaPersonalProvider, titularProvider, tasaCuentaPersonalProvider);
         return Response.created(uriInfo.getAbsolutePathBuilder().path(model.getId()).build())
                 .header("Access-Control-Expose-Headers", "Location")
                 .entity(Jsend.getSuccessJSend(model.getId())).build();

@@ -8,6 +8,7 @@ import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.CuentaPersonalProvider;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
+import org.sistcoop.socio.models.TasaCuentaPersonalProvider;
 import org.sistcoop.socio.models.TitularProvider;
 import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
 import org.sistcoop.socio.models.enums.TipoPersona;
@@ -27,15 +28,26 @@ public class RepresentationToModel {
     }
 
     public CuentaPersonalModel createCuentaPersonal(CuentaPersonalRepresentation rep, SocioModel socioModel,
-            CuentaPersonalProvider cuentaPersonalProvider, TitularProvider titularProvider) {
+            CuentaPersonalProvider cuentaPersonalProvider, TitularProvider titularProvider,
+            TasaCuentaPersonalProvider tasaCuentaPersonalProvider) {
+
         TitularRepresentation[] titulares = rep.getTitulares();
         TasaCuentaPersonalRepresentation[] tasas = rep.getTasas();
 
-        
-        CuentaPersonalModel model = cuentaPersonalProvider.create(socioModel,
-                TipoCuentaPersonal.valueOf(rep.getTipoCuenta().toUpperCase()), rep.getTitulares(),
-                rep.getTasas(), rep.getMoneda(), rep.getCantidadRetirantes(), rep.getFechaCierre());
+        CuentaPersonalModel cuentaPersonalModel = cuentaPersonalProvider.create(socioModel,
+                TipoCuentaPersonal.valueOf(rep.getTipoCuenta().toUpperCase()), rep.getMoneda(),
+                rep.getCantidadRetirantes(), rep.getFechaCierre());
 
-        return model;
+        for (TitularRepresentation titularRepresentation : titulares) {
+            titularProvider.create(cuentaPersonalModel, titularRepresentation.getTipoDocumento(),
+                    titularRepresentation.getNumeroDocumento());
+        }
+        for (TasaCuentaPersonalRepresentation tasaCuentaPersonalRepresentation : tasas) {
+            tasaCuentaPersonalProvider.create(cuentaPersonalModel,
+                    tasaCuentaPersonalRepresentation.getDenominacion(),
+                    tasaCuentaPersonalRepresentation.getValor());
+        }
+
+        return cuentaPersonalModel;
     }
 }

@@ -13,8 +13,8 @@ import org.sistcoop.socio.provider.Provider;
 @Local
 public interface CuentaPersonalProvider extends Provider {
 
-    CuentaPersonalModel create(SocioModel socio, TipoCuentaPersonal tipoCuenta, List<TitularModel> titulares,
-            List<TasaCuentaPersonalModel> tasas, String moneda, int cantidadRetirantes, Date fechaCierre);
+    CuentaPersonalModel create(SocioModel socio, TipoCuentaPersonal tipoCuenta, String moneda,
+            int cantidadRetirantes, Date fechaCierre);
 
     boolean remove(CuentaPersonalModel cuentaPersonal);
 

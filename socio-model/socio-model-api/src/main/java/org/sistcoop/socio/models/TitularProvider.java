@@ -11,8 +11,7 @@ import org.sistcoop.socio.provider.Provider;
 @Local
 public interface TitularProvider extends Provider {
 
-    TitularModel create(SocioModel socio, TipoCuentaPersonal tipoCuenta, List<TitularModel> titulares,
-            List<TasaCuentaPersonalModel> tasas, String moneda, int cantidadRetirantes, Date fechaCierre);
+    TitularModel create(CuentaPersonalModel cuentaPersonalModel, String tipoDocumento, String numeroDocumento);
 
     boolean remove(TitularModel titular);
 
