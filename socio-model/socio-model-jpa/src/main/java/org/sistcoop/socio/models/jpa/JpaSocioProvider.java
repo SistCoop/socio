@@ -37,7 +37,7 @@ import org.sistcoop.socio.models.search.SearchResultsModel;
 public class JpaSocioProvider extends AbstractHibernateStorage implements SocioProvider {
 
     @PersistenceContext
-    protected EntityManager em;
+    private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

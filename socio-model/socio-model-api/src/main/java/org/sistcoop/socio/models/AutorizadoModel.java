@@ -4,22 +4,22 @@ import java.util.Date;
 
 public interface AutorizadoModel extends Model {
 
-	Long getId();
+    String getId();
 
-	String getTipoDocumento();
+    String getTipoDocumento();
 
-	String getNumeroDocumento();
+    String getNumeroDocumento();
 
-	Date getFechaInicio();
+    Date getFechaInicio();
 
-	Date getFechaFin();
+    Date getFechaFin();
 
-	void setFechaFin(Date fechaFin);
+    void setFechaFin(Date fechaFin);
 
-	boolean getEstado();
+    boolean getEstado();
 
-	void desactivar();
+    void desactivar();
 
-	CuentaPersonalModel getCuentaPersonal();
+    CuentaPersonalModel getCuentaPersonal();
 
 }

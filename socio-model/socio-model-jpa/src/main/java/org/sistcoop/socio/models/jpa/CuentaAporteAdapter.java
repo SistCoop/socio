@@ -11,9 +11,6 @@ import org.sistcoop.socio.models.jpa.entities.NumeroCuentaAporteEntity;
 
 public class CuentaAporteAdapter implements CuentaAporteModel {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     protected CuentaAporteEntity cuentaAporteEntity;
@@ -75,6 +72,31 @@ public class CuentaAporteAdapter implements CuentaAporteModel {
     @Override
     public void setEstado(EstadoCuentaAporte estadoCuenta) {
         cuentaAporteEntity.setEstado(estadoCuenta);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getNumeroCuenta() == null) ? 0 : getNumeroCuenta().hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CuentaAporteModel other = (CuentaAporteModel) obj;
+        if (getNumeroCuenta() == null) {
+            if (other.getNumeroCuenta() != null)
+                return false;
+        } else if (!getNumeroCuenta().equals(other.getNumeroCuenta()))
+            return false;
+        return true;
     }
 
 }

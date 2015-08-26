@@ -38,7 +38,7 @@ public class ModelToRepresentation {
         rep.setCantidadRetirantes(model.getCantidadRetirantes());
         rep.setFechaApertura(model.getFechaApertura());
         rep.setFechaCierre(model.getFechaCierre());
-        rep.setEstado(model.getEstadoCuenta().toString());
+        rep.setEstado(model.getEstado().toString());
 
         return rep;
     }

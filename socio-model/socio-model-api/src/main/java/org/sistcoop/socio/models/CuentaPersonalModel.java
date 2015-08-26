@@ -29,9 +29,9 @@ public interface CuentaPersonalModel extends Model {
 
     int getCantidadRetirantes();
 
-    EstadoCuentaPersonal getEstadoCuenta();
+    EstadoCuentaPersonal getEstado();
 
-    void setEstadoCuenta(EstadoCuentaPersonal estadoCuenta);
+    void setEstado(EstadoCuentaPersonal estadoCuenta);
 
     SocioModel getSocio();
 
@@ -41,6 +41,6 @@ public interface CuentaPersonalModel extends Model {
 
     List<BeneficiarioModel> getBeneficiarios();
 
-    List<CuentaPersonalTasaModel> getTasas();
+    List<TasaCuentaPersonalModel> getTasas();
 
 }

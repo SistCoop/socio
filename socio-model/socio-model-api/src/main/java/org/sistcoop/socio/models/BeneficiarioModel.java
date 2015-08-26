@@ -4,32 +4,32 @@ import java.math.BigDecimal;
 
 public interface BeneficiarioModel extends Model {
 
-	Long getId();
+    String getId();
 
-	BigDecimal getPorcentajeBeneficio();
+    BigDecimal getPorcentajeBeneficio();
 
-	void setPorcentajeBeneficio(BigDecimal porcentajeBeneficiario);
+    void setPorcentajeBeneficio(BigDecimal porcentajeBeneficiario);
 
-	String getTipoDocumento();
+    String getTipoDocumento();
 
-	void setTipoDocumento(String tipoDocumento);
+    void setTipoDocumento(String tipoDocumento);
 
-	String getNumeroDocumento();
+    String getNumeroDocumento();
 
-	void setNumeroDocumento(String numeroDocumento);
+    void setNumeroDocumento(String numeroDocumento);
 
-	String getApellidoPaterno();
+    String getApellidoPaterno();
 
-	void setApellidoPaterno(String apellidoPaterno);
+    void setApellidoPaterno(String apellidoPaterno);
 
-	String getApellidoMaterno();
+    String getApellidoMaterno();
 
-	void setApellidoMaterno(String apellidoMaterno);
+    void setApellidoMaterno(String apellidoMaterno);
 
-	String getNombres();
+    String getNombres();
 
-	void setNombres(String nombres);
+    void setNombres(String nombres);
 
-	CuentaPersonalModel getCuentaPersonal();
+    CuentaPersonalModel getCuentaPersonal();
 
 }

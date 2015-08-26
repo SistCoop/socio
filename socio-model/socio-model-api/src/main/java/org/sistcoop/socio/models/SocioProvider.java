@@ -14,14 +14,14 @@ public interface SocioProvider extends Provider {
 
     SocioModel create(TipoPersona tipoPersona, String tipoDocumento, String numeroDocumento);
 
-    boolean remove(SocioModel socioModel);
+    boolean remove(SocioModel socio);
 
     SocioModel findById(String id);
 
     List<SocioModel> findAll();
 
-    SearchResultsModel<SocioModel> search(SearchCriteriaModel searchCriteriaBean);
+    SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria);
 
-    SearchResultsModel<SocioModel> search(SearchCriteriaModel searchCriteriaBean, String FfilterText);
+    SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria, String FfilterText);
 
 }

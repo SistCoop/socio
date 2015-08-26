@@ -2,12 +2,12 @@ package org.sistcoop.socio.models;
 
 public interface TitularModel extends Model {
 
-	Long getId();
+    String getId();
 
-	String getTipoDocumento();
+    String getTipoDocumento();
 
-	String getNumeroDocumento();
+    String getNumeroDocumento();
 
-	CuentaPersonalModel getCuentaPersonal();
+    CuentaPersonalModel getCuentaPersonal();
 
 }

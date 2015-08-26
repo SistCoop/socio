@@ -34,7 +34,7 @@ public class TasaCuentaPersonalEntity implements java.io.Serializable {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "ID")
-    private Long id;
+    private String id;
 
     @NotNull
     @Size(min = 1, max = 30)
@@ -53,11 +53,11 @@ public class TasaCuentaPersonalEntity implements java.io.Serializable {
     @JoinColumn(foreignKey = @ForeignKey, name = "CUENTA_PERSONAL_ID")
     private CuentaPersonalEntity cuentaPersonal;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -109,4 +109,5 @@ public class TasaCuentaPersonalEntity implements java.io.Serializable {
             return false;
         return true;
     }
+    
 }
