@@ -18,6 +18,9 @@ public class CuentaPersonalRepresentation implements Serializable {
     private int cantidadRetirantes;
     private String estado;
 
+    private TitularRepresentation[] titulares;
+    private TasaCuentaPersonalRepresentation[] tasas;
+
     public String getId() {
         return id;
     }
@@ -88,6 +91,22 @@ public class CuentaPersonalRepresentation implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public TitularRepresentation[] getTitulares() {
+        return titulares;
+    }
+
+    public void setTitulares(TitularRepresentation[] titulares) {
+        this.titulares = titulares;
+    }
+
+    public TasaCuentaPersonalRepresentation[] getTasas() {
+        return tasas;
+    }
+
+    public void setTasas(TasaCuentaPersonalRepresentation[] tasas) {
+        this.tasas = tasas;
     }
 
 }

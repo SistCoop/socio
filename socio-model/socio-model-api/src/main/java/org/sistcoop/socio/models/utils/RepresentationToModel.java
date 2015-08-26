@@ -8,10 +8,13 @@ import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.CuentaPersonalProvider;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
+import org.sistcoop.socio.models.TitularProvider;
 import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
 import org.sistcoop.socio.models.enums.TipoPersona;
 import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
 import org.sistcoop.socio.representations.idm.SocioRepresentation;
+import org.sistcoop.socio.representations.idm.TasaCuentaPersonalRepresentation;
+import org.sistcoop.socio.representations.idm.TitularRepresentation;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -24,10 +27,15 @@ public class RepresentationToModel {
     }
 
     public CuentaPersonalModel createCuentaPersonal(CuentaPersonalRepresentation rep, SocioModel socioModel,
-            CuentaPersonalProvider cuentaPersonalProvider) {
+            CuentaPersonalProvider cuentaPersonalProvider, TitularProvider titularProvider) {
+        TitularRepresentation[] titulares = rep.getTitulares();
+        TasaCuentaPersonalRepresentation[] tasas = rep.getTasas();
+
+        
         CuentaPersonalModel model = cuentaPersonalProvider.create(socioModel,
-                TipoCuentaPersonal.valueOf(rep.getTipoCuenta().toUpperCase()), rep.getMoneda(),
-                rep.getCantidadRetirantes());
+                TipoCuentaPersonal.valueOf(rep.getTipoCuenta().toUpperCase()), rep.getTitulares(),
+                rep.getTasas(), rep.getMoneda(), rep.getCantidadRetirantes(), rep.getFechaCierre());
+
         return model;
     }
 }

@@ -19,6 +19,7 @@ import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
 import org.sistcoop.socio.models.jpa.entities.AutorizadoEntity;
 import org.sistcoop.socio.models.jpa.entities.BeneficiarioEntity;
 import org.sistcoop.socio.models.jpa.entities.CuentaPersonalEntity;
+import org.sistcoop.socio.models.jpa.entities.NumeroCuentaPersonalEntity;
 import org.sistcoop.socio.models.jpa.entities.SocioEntity;
 import org.sistcoop.socio.models.jpa.entities.TasaCuentaPersonalEntity;
 import org.sistcoop.socio.models.jpa.entities.TitularEntity;
@@ -66,7 +67,8 @@ public class CuentaPersonalAdapter implements CuentaPersonalModel {
 
     @Override
     public String getNumeroCuenta() {
-        return cuentaPersonalEntity.getNumeroCuenta();
+        NumeroCuentaPersonalEntity numeroCuentaPersonalEntity = cuentaPersonalEntity.getNumeroCuenta();
+        return String.valueOf(numeroCuentaPersonalEntity.getNumeroCuenta().intValue());
     }
 
     @Override

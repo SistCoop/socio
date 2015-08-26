@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,10 +58,9 @@ public class CuentaPersonalEntity implements java.io.Serializable {
     private TipoCuentaPersonal tipoCuenta;
 
     @NotNull
-    @Size(min = 0, max = 20)
-    @NotBlank
-    @Column(name = "NUMERO_CUENTA")
-    private String numeroCuenta;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
+    @JoinColumn(foreignKey = @ForeignKey, name = "NUMERO_CUENTA")
+    private NumeroCuentaPersonalEntity numeroCuenta;
 
     @NotNull
     @Size(min = 3, max = 3)
@@ -97,16 +98,16 @@ public class CuentaPersonalEntity implements java.io.Serializable {
     @JoinColumn(foreignKey = @ForeignKey, name = "SOCIO_ID")
     private SocioEntity socio;
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<TitularEntity> titulares = new HashSet<TitularEntity>();
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<AutorizadoEntity> autorizados = new HashSet<AutorizadoEntity>();
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<BeneficiarioEntity> beneficiarios = new HashSet<BeneficiarioEntity>();
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<TasaCuentaPersonalEntity> tasas = new HashSet<TasaCuentaPersonalEntity>();
 
     @Version
@@ -128,11 +129,11 @@ public class CuentaPersonalEntity implements java.io.Serializable {
         this.tipoCuenta = tipoCuenta;
     }
 
-    public String getNumeroCuenta() {
+    public NumeroCuentaPersonalEntity getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(String numeroCuenta) {
+    public void setNumeroCuenta(NumeroCuentaPersonalEntity numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 

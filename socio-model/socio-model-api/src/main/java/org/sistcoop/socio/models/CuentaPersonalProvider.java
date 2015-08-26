@@ -1,5 +1,6 @@
 package org.sistcoop.socio.models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -12,8 +13,8 @@ import org.sistcoop.socio.provider.Provider;
 @Local
 public interface CuentaPersonalProvider extends Provider {
 
-    CuentaPersonalModel create(SocioModel socio, TipoCuentaPersonal tipoCuentaPersonal, String moneda,
-            int cantidadRetirantes);
+    CuentaPersonalModel create(SocioModel socio, TipoCuentaPersonal tipoCuenta, List<TitularModel> titulares,
+            List<TasaCuentaPersonalModel> tasas, String moneda, int cantidadRetirantes, Date fechaCierre);
 
     boolean remove(CuentaPersonalModel cuentaPersonal);
 

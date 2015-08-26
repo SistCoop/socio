@@ -13,12 +13,12 @@ import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
 public class CuentaPersonalManager {
 
     public void update(CuentaPersonalModel model, CuentaPersonalRepresentation rep) {
-        model.setEstadoCuenta(EstadoCuentaPersonal.valueOf(rep.getEstado().toUpperCase()));
+        model.setEstado(EstadoCuentaPersonal.valueOf(rep.getEstado().toUpperCase()));
         model.commit();
     }
 
     public void disable(CuentaPersonalModel model) {
-        model.setEstadoCuenta(EstadoCuentaPersonal.INACTIVO);
+        model.setEstado(EstadoCuentaPersonal.INACTIVO);
         model.commit();
     }
 
