@@ -22,11 +22,11 @@ import org.hibernate.validator.constraints.NotBlank;
 @Audited
 @Cacheable
 @Entity
-@Table(name = "CUENTA_APORTE_MONEDA")
+@Table(name = "MONEDA_CUENTA_APORTE")
 @NamedQueries(value = {
-        @NamedQuery(name = "CuentaAporteMonedaEntity.findAll", query = "SELECT c FROM CuentaAporteMonedaEntity c"),
-        @NamedQuery(name = "CuentaAporteMonedaEntity.findByEstado", query = "SELECT c FROM CuentaAporteMonedaEntity c WHERE c.estado =:estado") })
-public class CuentaAporteMonedaEntity implements java.io.Serializable {
+        @NamedQuery(name = "MonedaCuentaAporteEntity.findAll", query = "SELECT c FROM MonedaCuentaAporteEntity c"),
+        @NamedQuery(name = "MonedaCuentaAporteEntity.findByEstado", query = "SELECT c FROM MonedaCuentaAporteEntity c WHERE c.estado =:estado") })
+public class MonedaCuentaAporteEntity implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -98,7 +98,7 @@ public class CuentaAporteMonedaEntity implements java.io.Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CuentaAporteMonedaEntity other = (CuentaAporteMonedaEntity) obj;
+        MonedaCuentaAporteEntity other = (MonedaCuentaAporteEntity) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

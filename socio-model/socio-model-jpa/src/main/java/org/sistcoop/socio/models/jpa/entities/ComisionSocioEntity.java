@@ -3,6 +3,7 @@ package org.sistcoop.socio.models.jpa.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,10 +20,13 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
 import org.sistcoop.socio.models.enums.Frecuencia;
 import org.sistcoop.socio.models.enums.TipoValor;
 
+@Audited
+@Cacheable
 @Entity
 @Table(name = "COMISION_SOCIO")
 @NamedQueries(value = {
@@ -41,19 +45,23 @@ public class ComisionSocioEntity implements Serializable {
     @NotNull
     @NotBlank
     @Size(min = 1, max = 100)
+    @Column(name = "DENOMINACION")
     private String denominacion;
 
     @NotNull
     @Min(value = 0)
     @Max(value = 1000)
+    @Column(name = "VALOR")
     private BigDecimal valor;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "TIPO_VALOR")
     private TipoValor tipoValor;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "FRECUENCIA")
     private Frecuencia frecuencia;
 
     @NotNull

@@ -1,184 +1,177 @@
 package org.sistcoop.socio.models.jpa.entities;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
+import javax.persistence.Version;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
+@Audited
+@Cacheable
 @Entity
-@Table(name = "BENEFICIARIO", indexes = { @Index(columnList = "id") })
+@Table(name = "BENEFICIARIO")
 public class BeneficiarioEntity implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long id;
-	private BigDecimal porcentajeBeneficio;
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "ID")
+    private String id;
 
-	private String tipoDocumento;
-	private String numeroDocumento;
+    @NotNull
+    @Min(value = 0)
+    @Max(value = 100)
+    @Digits(integer = 3, fraction = 2)
+    @Column(name = "PORCENTAJE_BENEFICIO")
+    private BigDecimal porcentajeBeneficio;
 
-	private String apellidoPaterno;
-	private String apellidoMaterno;
-	private String nombres;
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotBlank
+    @Column(name = "TIPO_DOCUMENTO")
+    private String tipoDocumento;
 
-	private CuentaPersonalEntity cuentaPersonal;
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotBlank
+    @Column(name = "NUMERO_DOCUMENTO")
+    private String numeroDocumento;
 
-	public BeneficiarioEntity() {
-	}
+    @Size(min = 1, max = 50)
+    @Column(name = "APELLIDO_PATERNO")
+    private String apellidoPaterno;
 
-	@Id
-	@GeneratedValue(generator = "SgGenericGenerator")
-	public Long getId() {
-		return id;
-	}
+    @Size(min = 1, max = 50)
+    @Column(name = "APELLIDO_MATERNO")
+    private String apellidoMaterno;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Size(min = 1, max = 70)
+    @Column(name = "NOMBRES")
+    private String nombres;
 
-	@NotNull
-	@Size(min = 1, max = 20)
-	@NotBlank
-	@NotEmpty
-	public String getTipoDocumento() {
-		return tipoDocumento;
-	}
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey, name = "CUENTA_PERSONAL_ID")
+    private CuentaPersonalEntity cuentaPersonal;
 
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
+    @Version
+    private Timestamp optlk;
 
-	@NotNull
-	@Size(min = 1, max = 20)
-	@NotEmpty
-	@NotBlank
-	public String getNumeroDocumento() {
-		return numeroDocumento;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	@NotNull
-	@Size(min = 1, max = 50)
-	@NotEmpty
-	@NotBlank
-	public String getApellidoPaterno() {
-		return apellidoPaterno;
-	}
+    public BigDecimal getPorcentajeBeneficio() {
+        return porcentajeBeneficio;
+    }
 
-	public void setApellidoPaterno(String apellidoPaterno) {
-		this.apellidoPaterno = apellidoPaterno;
-	}
+    public void setPorcentajeBeneficio(BigDecimal porcentajeBeneficio) {
+        this.porcentajeBeneficio = porcentajeBeneficio;
+    }
 
-	@NotNull
-	@Size(min = 1, max = 50)
-	@NotEmpty
-	@NotBlank
-	public String getApellidoMaterno() {
-		return apellidoMaterno;
-	}
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
 
-	public void setApellidoMaterno(String apellidoMaterno) {
-		this.apellidoMaterno = apellidoMaterno;
-	}
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
 
-	@NotNull
-	@Size(min = 1, max = 70)
-	@NotEmpty
-	@NotBlank
-	public String getNombres() {
-		return this.nombres;
-	}
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
 
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
 
-	@NotNull
-	@Min(value = 0)
-	@Max(value = 100)
-	@DecimalMin(value = "0")
-	@DecimalMax(value = "100")
-	@Digits(integer = 3, fraction = 2)
-	public BigDecimal getPorcentajeBeneficio() {
-		return porcentajeBeneficio;
-	}
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
 
-	public void setPorcentajeBeneficio(BigDecimal porcentajeBeneficio) {
-		this.porcentajeBeneficio = porcentajeBeneficio;
-	}
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
 
-	@NotNull
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey)
-	public CuentaPersonalEntity getCuentaPersonal() {
-		return cuentaPersonal;
-	}
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
 
-	public void setCuentaPersonal(CuentaPersonalEntity cuentaPersonal) {
-		this.cuentaPersonal = cuentaPersonal;
-	}
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((apellidoMaterno == null) ? 0 : apellidoMaterno.hashCode());
-		result = prime * result + ((apellidoPaterno == null) ? 0 : apellidoPaterno.hashCode());
-		result = prime * result + ((cuentaPersonal == null) ? 0 : cuentaPersonal.hashCode());
-		result = prime * result + ((nombres == null) ? 0 : nombres.hashCode());
-		return result;
-	}
+    public String getNombres() {
+        return nombres;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof BeneficiarioEntity))
-			return false;
-		BeneficiarioEntity other = (BeneficiarioEntity) obj;
-		if (apellidoMaterno == null) {
-			if (other.apellidoMaterno != null)
-				return false;
-		} else if (!apellidoMaterno.equals(other.apellidoMaterno))
-			return false;
-		if (apellidoPaterno == null) {
-			if (other.apellidoPaterno != null)
-				return false;
-		} else if (!apellidoPaterno.equals(other.apellidoPaterno))
-			return false;
-		if (cuentaPersonal == null) {
-			if (other.cuentaPersonal != null)
-				return false;
-		} else if (!cuentaPersonal.equals(other.cuentaPersonal))
-			return false;
-		if (nombres == null) {
-			if (other.nombres != null)
-				return false;
-		} else if (!nombres.equals(other.nombres))
-			return false;
-		return true;
-	}
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public CuentaPersonalEntity getCuentaPersonal() {
+        return cuentaPersonal;
+    }
+
+    public void setCuentaPersonal(CuentaPersonalEntity cuentaPersonal) {
+        this.cuentaPersonal = cuentaPersonal;
+    }
+
+    public Timestamp getOptlk() {
+        return optlk;
+    }
+
+    public void setOptlk(Timestamp optlk) {
+        this.optlk = optlk;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        BeneficiarioEntity other = (BeneficiarioEntity) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
 
 }

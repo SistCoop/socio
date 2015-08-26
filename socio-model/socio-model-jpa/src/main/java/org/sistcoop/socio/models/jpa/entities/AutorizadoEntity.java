@@ -3,12 +3,13 @@ package org.sistcoop.socio.models.jpa.entities;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,151 +19,146 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
+@Audited
+@Cacheable
 @Entity
-@Table(name = "AUTORIZADO", indexes = { @Index(columnList = "id") })
+@Table(name = "AUTORIZADO")
 public class AutorizadoEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public final static String base = "org.sistcoop.socio.models.jpa.entities.AutorizadoEntity.";
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "ID")
+    private String id;
 
-	private Long id;
-	private String tipoDocumento;
-	private String numeroDocumento;
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotBlank
+    @Column(name = "TIPO_DOCUMENTO")
+    private String tipoDocumento;
 
-	private Date fechaInicio;
-	private Date fechaFin;
-	private boolean estado;
+    @NotNull
+    @Size(min = 1, max = 20)
+    @NotBlank
+    @Column(name = "NUMERO_DOCUMENTO")
+    private String numeroDocumento;
 
-	private CuentaPersonalEntity cuentaPersonal;
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA_INICIO")
+    private Date fechaInicio;
 
-	private Timestamp version;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA_FIN")
+    private Date fechaFin;
 
-	@Id
-	@GeneratedValue(generator = "SgGenericGenerator")
-	public Long getId() {
-		return id;
-	}
+    @NotNull
+    @Type(type = "org.hibernate.type.TrueFalseType")
+    @Column(name = "ESTADO")
+    private boolean estado;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey, name = "CUENTA_PERSONAL_ID")
+    private CuentaPersonalEntity cuentaPersonal;
 
-	@NotNull
-	@Size(min = 1, max = 20)
-	@NotEmpty
-	@NotBlank
-	public String getTipoDocumento() {
-		return this.tipoDocumento;
-	}
+    @Version
+    private Timestamp optlk;
 
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
+    public String getId() {
+        return id;
+    }
 
-	@NotNull
-	@Size(min = 1, max = 20)
-	@NotEmpty
-	@NotBlank
-	public String getNumeroDocumento() {
-		return this.numeroDocumento;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setNumeroDocumento(String numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
-	}
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
 
-	@NotNull
-	@Temporal(TemporalType.DATE)
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
 
-	@Temporal(TemporalType.DATE)
-	public Date getFechaFin() {
-		return fechaFin;
-	}
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
 
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
 
-	@NotNull
-	@Type(type = "org.hibernate.type.TrueFalseType")
-	public boolean isEstado() {
-		return estado;
-	}
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
+    public Date getFechaFin() {
+        return fechaFin;
+    }
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey)
-	public CuentaPersonalEntity getCuentaPersonal() {
-		return cuentaPersonal;
-	}
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
-	public void setCuentaPersonal(CuentaPersonalEntity cuentaPersonal) {
-		this.cuentaPersonal = cuentaPersonal;
-	}
+    public boolean isEstado() {
+        return estado;
+    }
 
-	@Version
-	public Timestamp getVersion() {
-		return version;
-	}
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
-	}
+    public CuentaPersonalEntity getCuentaPersonal() {
+        return cuentaPersonal;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cuentaPersonal == null) ? 0 : cuentaPersonal.hashCode());
-		result = prime * result + ((numeroDocumento == null) ? 0 : numeroDocumento.hashCode());
-		result = prime * result + ((tipoDocumento == null) ? 0 : tipoDocumento.hashCode());
-		return result;
-	}
+    public void setCuentaPersonal(CuentaPersonalEntity cuentaPersonal) {
+        this.cuentaPersonal = cuentaPersonal;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof AutorizadoEntity))
-			return false;
-		AutorizadoEntity other = (AutorizadoEntity) obj;
-		if (cuentaPersonal == null) {
-			if (other.cuentaPersonal != null)
-				return false;
-		} else if (!cuentaPersonal.equals(other.cuentaPersonal))
-			return false;
-		if (numeroDocumento == null) {
-			if (other.numeroDocumento != null)
-				return false;
-		} else if (!numeroDocumento.equals(other.numeroDocumento))
-			return false;
-		if (tipoDocumento == null) {
-			if (other.tipoDocumento != null)
-				return false;
-		} else if (!tipoDocumento.equals(other.tipoDocumento))
-			return false;
-		return true;
-	}
+    public Timestamp getOptlk() {
+        return optlk;
+    }
+
+    public void setOptlk(Timestamp optlk) {
+        this.optlk = optlk;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AutorizadoEntity other = (AutorizadoEntity) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
 
 }

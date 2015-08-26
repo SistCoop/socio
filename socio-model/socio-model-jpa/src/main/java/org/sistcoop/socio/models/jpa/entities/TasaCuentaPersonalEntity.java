@@ -1,13 +1,10 @@
 package org.sistcoop.socio.models.jpa.entities;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -15,23 +12,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
-import org.hibernate.validator.constraints.NotBlank;
-import org.sistcoop.socio.models.enums.Frecuencia;
-import org.sistcoop.socio.models.enums.TipoValor;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Audited
 @Cacheable
 @Entity
-@Table(name = "COMISION_SOCIO_ASIGNADA")
-public class ComisionSocioAsignadaEntity implements Serializable {
+@Table(name = "TASA_CUENTA_PERSONAL")
+public class TasaCuentaPersonalEntity implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,45 +34,30 @@ public class ComisionSocioAsignadaEntity implements Serializable {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "ID")
-    private String id;
+    private Long id;
 
     @NotNull
-    @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 30)
+    @NotEmpty
     @Column(name = "DENOMINACION")
     private String denominacion;
 
     @NotNull
     @Min(value = 0)
-    @Max(value = 1000)
-    @Column(name = "VALOR")
+    @Max(value = 100)
+    @Digits(integer = 3, fraction = 2)
     private BigDecimal valor;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO_VALOR")
-    private TipoValor tipoValor;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "FRECUENCIA")
-    private Frecuencia frecuencia;
-
-    @NotNull
-    @Type(type = "org.hibernate.type.TrueFalseType")
-    @Column(name = "ESTADO")
-    private boolean estado;
-
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey, name = "SOCIO_ID")
-    private SocioEntity socio;
+    @JoinColumn(foreignKey = @ForeignKey, name = "CUENTA_PERSONAL_ID")
+    private CuentaPersonalEntity cuentaPersonal;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -97,36 +77,12 @@ public class ComisionSocioAsignadaEntity implements Serializable {
         this.valor = valor;
     }
 
-    public TipoValor getTipoValor() {
-        return tipoValor;
+    public CuentaPersonalEntity getCuentaPersonal() {
+        return cuentaPersonal;
     }
 
-    public void setTipoValor(TipoValor tipoValor) {
-        this.tipoValor = tipoValor;
-    }
-
-    public Frecuencia getFrecuencia() {
-        return frecuencia;
-    }
-
-    public void setFrecuencia(Frecuencia frecuencia) {
-        this.frecuencia = frecuencia;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public SocioEntity getSocio() {
-        return socio;
-    }
-
-    public void setSocio(SocioEntity socio) {
-        this.socio = socio;
+    public void setCuentaPersonal(CuentaPersonalEntity cuentaPersonal) {
+        this.cuentaPersonal = cuentaPersonal;
     }
 
     @Override
@@ -145,7 +101,7 @@ public class ComisionSocioAsignadaEntity implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ComisionSocioAsignadaEntity other = (ComisionSocioAsignadaEntity) obj;
+        TasaCuentaPersonalEntity other = (TasaCuentaPersonalEntity) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -153,5 +109,4 @@ public class ComisionSocioAsignadaEntity implements Serializable {
             return false;
         return true;
     }
-
 }

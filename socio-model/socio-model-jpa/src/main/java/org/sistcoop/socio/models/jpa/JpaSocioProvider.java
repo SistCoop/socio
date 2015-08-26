@@ -24,7 +24,7 @@ import org.sistcoop.socio.models.enums.TipoPersona;
 import org.sistcoop.socio.models.jpa.entities.ComisionSocioAsignadaEntity;
 import org.sistcoop.socio.models.jpa.entities.ComisionSocioEntity;
 import org.sistcoop.socio.models.jpa.entities.CuentaAporteEntity;
-import org.sistcoop.socio.models.jpa.entities.CuentaAporteMonedaEntity;
+import org.sistcoop.socio.models.jpa.entities.MonedaCuentaAporteEntity;
 import org.sistcoop.socio.models.jpa.entities.NumeroCuentaAporteEntity;
 import org.sistcoop.socio.models.jpa.entities.SocioEntity;
 import org.sistcoop.socio.models.search.SearchCriteriaModel;
@@ -52,11 +52,11 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
     @Override
     public SocioModel create(TipoPersona tipoPersona, String tipoDocumento, String numeroDocumento) {
         // Buscar moneda por defecto
-        TypedQuery<CuentaAporteMonedaEntity> queryMonedas = em.createNamedQuery(
-                "CuentaAporteMonedaEntity.findByEstado", CuentaAporteMonedaEntity.class);
+        TypedQuery<MonedaCuentaAporteEntity> queryMonedas = em.createNamedQuery(
+                "MonedaCuentaAporteEntity.findByEstado", MonedaCuentaAporteEntity.class);
         queryMonedas.setParameter("estado", true);
-        List<CuentaAporteMonedaEntity> resultMonedas = queryMonedas.getResultList();
-        CuentaAporteMonedaEntity cuentaAporteMonedaEntity = resultMonedas.get(0);
+        List<MonedaCuentaAporteEntity> resultMonedas = queryMonedas.getResultList();
+        MonedaCuentaAporteEntity cuentaAporteMonedaEntity = resultMonedas.get(0);
 
         // Buscar comisiones existentes
         TypedQuery<ComisionSocioEntity> queryComisiones = em.createNamedQuery(

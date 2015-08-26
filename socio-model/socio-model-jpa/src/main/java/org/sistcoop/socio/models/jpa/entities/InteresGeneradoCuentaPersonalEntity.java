@@ -1,6 +1,7 @@
 package org.sistcoop.socio.models.jpa.entities;
 
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -10,21 +11,22 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
-import org.hibernate.validator.constraints.NotBlank;
 
 @Audited
 @Cacheable
 @Entity
-@Table(name = "TITULAR")
-public class TitularEntity implements java.io.Serializable {
+@Table(name = "INTERES_GENERADO_CUENTA_PERSONAL")
+public class InteresGeneradoCuentaPersonalEntity implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,24 +37,26 @@ public class TitularEntity implements java.io.Serializable {
     private String id;
 
     @NotNull
-    @Size(min = 1, max = 20)
-    @NotBlank
-    @Column(name = "TIPO_DOCUMENTO")
-    private String tipoDocumento;
+    @Min(value = 0)
+    @Digits(integer = 18, fraction = 2)
+    @Column(name = "CAPITAL")
+    private BigDecimal capital;
 
     @NotNull
-    @Size(min = 1, max = 20)
-    @NotBlank
-    @Column(name = "NUMERO_DOCUMENTO")
-    private String numeroDocumento;
+    @Min(value = 0)
+    @Digits(integer = 18, fraction = 2)
+    @Column(name = "INTERES_GENERADO")
+    private BigDecimal interesGenerado;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FECHA")
+    private Date fecha;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey, name = "CUENTA_PERSONAL_ID")
     private CuentaPersonalEntity cuentaPersonal;
-
-    @Version
-    private Timestamp optlk;
 
     public String getId() {
         return id;
@@ -62,20 +66,28 @@ public class TitularEntity implements java.io.Serializable {
         this.id = id;
     }
 
-    public String getTipoDocumento() {
-        return tipoDocumento;
+    public BigDecimal getCapital() {
+        return capital;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
+    public void setCapital(BigDecimal capital) {
+        this.capital = capital;
     }
 
-    public String getNumeroDocumento() {
-        return numeroDocumento;
+    public BigDecimal getInteresGenerado() {
+        return interesGenerado;
     }
 
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+    public void setInteresGenerado(BigDecimal interesGenerado) {
+        this.interesGenerado = interesGenerado;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public CuentaPersonalEntity getCuentaPersonal() {
@@ -84,14 +96,6 @@ public class TitularEntity implements java.io.Serializable {
 
     public void setCuentaPersonal(CuentaPersonalEntity cuentaPersonal) {
         this.cuentaPersonal = cuentaPersonal;
-    }
-
-    public Timestamp getOptlk() {
-        return optlk;
-    }
-
-    public void setOptlk(Timestamp optlk) {
-        this.optlk = optlk;
     }
 
     @Override
@@ -110,7 +114,7 @@ public class TitularEntity implements java.io.Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        TitularEntity other = (TitularEntity) obj;
+        InteresGeneradoCuentaPersonalEntity other = (InteresGeneradoCuentaPersonalEntity) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

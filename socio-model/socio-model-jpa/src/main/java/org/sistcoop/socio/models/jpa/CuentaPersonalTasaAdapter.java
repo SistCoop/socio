@@ -11,7 +11,7 @@ import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.CuentaPersonalTasaModel;
 import org.sistcoop.socio.models.jpa.entities.AutorizadoEntity;
 import org.sistcoop.socio.models.jpa.entities.BeneficiarioEntity;
-import org.sistcoop.socio.models.jpa.entities.CuentaPersonalTasaEntity;
+import org.sistcoop.socio.models.jpa.entities.TasaCuentaPersonalEntity;
 
 public class CuentaPersonalTasaAdapter implements CuentaPersonalTasaModel {
 
@@ -20,23 +20,23 @@ public class CuentaPersonalTasaAdapter implements CuentaPersonalTasaModel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected CuentaPersonalTasaEntity cuentaPersonalTasaEntity;
+	protected TasaCuentaPersonalEntity cuentaPersonalTasaEntity;
 	protected EntityManager em;
 
-	public CuentaPersonalTasaAdapter(EntityManager em, CuentaPersonalTasaEntity cuentaPersonalTasaEntity) {
+	public CuentaPersonalTasaAdapter(EntityManager em, TasaCuentaPersonalEntity cuentaPersonalTasaEntity) {
 		this.em = em;
 		this.cuentaPersonalTasaEntity = cuentaPersonalTasaEntity;
 	}
 
-	public CuentaPersonalTasaEntity getCuentaPersonalTasaEntity() {
+	public TasaCuentaPersonalEntity getCuentaPersonalTasaEntity() {
 		return this.cuentaPersonalTasaEntity;
 	}
 
-	public static CuentaPersonalTasaEntity toBeneficiarioEntity(CuentaPersonalTasaModel model, EntityManager em) {
+	public static TasaCuentaPersonalEntity toBeneficiarioEntity(CuentaPersonalTasaModel model, EntityManager em) {
 		if (model instanceof CuentaPersonalTasaAdapter) {
 			return ((CuentaPersonalTasaAdapter) model).getCuentaPersonalTasaEntity();
 		}
-		return em.getReference(CuentaPersonalTasaEntity.class, model.getId());
+		return em.getReference(TasaCuentaPersonalEntity.class, model.getId());
 	}
 
 	@Override

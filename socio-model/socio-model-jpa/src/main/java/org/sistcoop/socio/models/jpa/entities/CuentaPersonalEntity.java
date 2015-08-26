@@ -107,7 +107,7 @@ public class CuentaPersonalEntity implements java.io.Serializable {
     private Set<BeneficiarioEntity> beneficiarios = new HashSet<BeneficiarioEntity>();
 
     @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<CuentaPersonalTasaEntity> tasas = new HashSet<CuentaPersonalTasaEntity>();
+    private Set<TasaCuentaPersonalEntity> tasas = new HashSet<TasaCuentaPersonalEntity>();
 
     @Version
     private Timestamp optlk;
@@ -216,11 +216,11 @@ public class CuentaPersonalEntity implements java.io.Serializable {
         this.beneficiarios = beneficiarios;
     }
 
-    public Set<CuentaPersonalTasaEntity> getTasas() {
+    public Set<TasaCuentaPersonalEntity> getTasas() {
         return tasas;
     }
 
-    public void setTasas(Set<CuentaPersonalTasaEntity> tasas) {
+    public void setTasas(Set<TasaCuentaPersonalEntity> tasas) {
         this.tasas = tasas;
     }
 

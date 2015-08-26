@@ -33,9 +33,6 @@ import org.sistcoop.socio.models.enums.EstadoCuentaAporte;
 @Table(name = "CUENTA_APORTE")
 public class CuentaAporteEntity implements java.io.Serializable {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = 1L;
 
     @Id

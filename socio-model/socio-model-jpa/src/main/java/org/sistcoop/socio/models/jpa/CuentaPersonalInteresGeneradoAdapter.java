@@ -11,7 +11,7 @@ import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.enums.EstadoCuentaAporte;
 import org.sistcoop.socio.models.jpa.entities.CuentaAporteEntity;
-import org.sistcoop.socio.models.jpa.entities.CuentaPersonalInteresGeneradoEntity;
+import org.sistcoop.socio.models.jpa.entities.InteresGeneradoCuentaPersonalEntity;
 
 public class CuentaPersonalInteresGeneradoAdapter implements CuentaPersonalInteresGeneradoModel {
 
@@ -20,23 +20,23 @@ public class CuentaPersonalInteresGeneradoAdapter implements CuentaPersonalInter
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected CuentaPersonalInteresGeneradoEntity cuentaPersonalInteresGeneradoEntity;
+	protected InteresGeneradoCuentaPersonalEntity cuentaPersonalInteresGeneradoEntity;
 	protected EntityManager em;
 
-	public CuentaPersonalInteresGeneradoAdapter(EntityManager em, CuentaPersonalInteresGeneradoEntity cuentaPersonalInteresGeneradoEntity) {
+	public CuentaPersonalInteresGeneradoAdapter(EntityManager em, InteresGeneradoCuentaPersonalEntity cuentaPersonalInteresGeneradoEntity) {
 		this.em = em;
 		this.cuentaPersonalInteresGeneradoEntity = cuentaPersonalInteresGeneradoEntity;
 	}
 
-	public CuentaPersonalInteresGeneradoEntity getCuentaPersonalInteresGeneradoEntity() {
+	public InteresGeneradoCuentaPersonalEntity getCuentaPersonalInteresGeneradoEntity() {
 		return this.cuentaPersonalInteresGeneradoEntity;
 	}
 
-	public static CuentaPersonalInteresGeneradoEntity toCuentaAporteEntity(CuentaPersonalInteresGeneradoModel model, EntityManager em) {
+	public static InteresGeneradoCuentaPersonalEntity toCuentaAporteEntity(CuentaPersonalInteresGeneradoModel model, EntityManager em) {
 		if (model instanceof CuentaPersonalInteresGeneradoAdapter) {
 			return ((CuentaPersonalInteresGeneradoAdapter) model).getCuentaPersonalInteresGeneradoEntity();
 		}
-		return em.getReference(CuentaPersonalInteresGeneradoEntity.class, model.getId());
+		return em.getReference(InteresGeneradoCuentaPersonalEntity.class, model.getId());
 	}
 
 	@Override
