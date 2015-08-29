@@ -98,16 +98,16 @@ public class CuentaPersonalEntity implements java.io.Serializable {
     @JoinColumn(foreignKey = @ForeignKey, name = "SOCIO_ID")
     private SocioEntity socio;
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<TitularEntity> titulares = new HashSet<TitularEntity>();
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<AutorizadoEntity> autorizados = new HashSet<AutorizadoEntity>();
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<BeneficiarioEntity> beneficiarios = new HashSet<BeneficiarioEntity>();
 
-    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cuentaPersonal", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<TasaCuentaPersonalEntity> tasas = new HashSet<TasaCuentaPersonalEntity>();
 
     @Version

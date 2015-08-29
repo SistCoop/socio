@@ -19,14 +19,9 @@ import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
 import org.sistcoop.socio.models.TasaCuentaPersonalProvider;
 import org.sistcoop.socio.models.TitularProvider;
-import org.sistcoop.socio.models.search.PagingModel;
-import org.sistcoop.socio.models.search.SearchCriteriaFilterOperator;
-import org.sistcoop.socio.models.search.SearchCriteriaModel;
-import org.sistcoop.socio.models.search.SearchResultsModel;
 import org.sistcoop.socio.models.utils.ModelToRepresentation;
 import org.sistcoop.socio.models.utils.RepresentationToModel;
 import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
-import org.sistcoop.socio.representations.idm.search.SearchResultsRepresentation;
 
 @Stateless
 public class CuentasPersonalesResourceImpl implements CuentasPersonalesResource {
@@ -83,43 +78,4 @@ public class CuentasPersonalesResourceImpl implements CuentasPersonalesResource 
         return rep;
     }
 
-    @Override
-    public SearchResultsRepresentation<CuentaPersonalRepresentation> search(String tipoCuenta,
-            String numeroCuenta, String moneda, boolean estado, String filterText, int page, int pageSize) {
-
-        PagingModel paging = new PagingModel();
-        paging.setPage(page);
-        paging.setPageSize(pageSize);
-
-        SearchCriteriaModel searchCriteriaBean = new SearchCriteriaModel();
-        searchCriteriaBean.setPaging(paging);
-
-        if (tipoCuenta != null) {
-            searchCriteriaBean.addFilter("tipoCuenta", tipoCuenta, SearchCriteriaFilterOperator.eq);
-        }
-        if (numeroCuenta != null) {
-            searchCriteriaBean.addFilter("numeroCuenta", numeroCuenta, SearchCriteriaFilterOperator.eq);
-        }
-        if (moneda != null) {
-            searchCriteriaBean.addFilter("moneda", moneda, SearchCriteriaFilterOperator.eq);
-        }
-        searchCriteriaBean.addFilter("estado", estado, SearchCriteriaFilterOperator.bool_eq);
-
-        SearchResultsModel<CuentaPersonalModel> results = null;
-        if (filterText != null) {
-            results = cuentaPersonalProvider.search(getSocioModel(), searchCriteriaBean);
-        } else {
-            results = cuentaPersonalProvider.search(getSocioModel(), searchCriteriaBean, filterText);
-        }
-
-        SearchResultsRepresentation<CuentaPersonalRepresentation> rep = new SearchResultsRepresentation<>();
-        List<CuentaPersonalRepresentation> representations = new ArrayList<>();
-        for (CuentaPersonalModel model : results.getModels()) {
-            representations.add(ModelToRepresentation.toRepresentation(model));
-        }
-
-        rep.setTotalSize(results.getTotalSize());
-        rep.setItems(representations);
-        return rep;
-    }
 }

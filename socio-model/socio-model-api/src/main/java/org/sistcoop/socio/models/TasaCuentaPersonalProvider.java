@@ -10,10 +10,9 @@ import org.sistcoop.socio.provider.Provider;
 @Local
 public interface TasaCuentaPersonalProvider extends Provider {
 
-    TasaCuentaPersonalModel create(CuentaPersonalModel cuentaPersonalModel, String tipoDocumento,
-            BigDecimal bigDecimal);
+    TasaCuentaPersonalModel create(CuentaPersonalModel cuentaPersonal, String denominacion, BigDecimal valor);
 
-    boolean remove(TasaCuentaPersonalModel titular);
+    boolean remove(TasaCuentaPersonalModel tasaCuentaPersonal);
 
     TasaCuentaPersonalModel findById(String id);
 

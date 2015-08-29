@@ -22,9 +22,8 @@ import org.sistcoop.socio.representations.idm.TitularRepresentation;
 public class RepresentationToModel {
 
     public SocioModel createSocio(SocioRepresentation rep, SocioProvider socioProvider) {
-        SocioModel socioModel = socioProvider.create(TipoPersona.valueOf(rep.getTipoPersona().toUpperCase()),
+        return socioProvider.create(TipoPersona.valueOf(rep.getTipoPersona().toUpperCase()),
                 rep.getTipoDocumento(), rep.getNumeroDocumento());
-        return socioModel;
     }
 
     public CuentaPersonalModel createCuentaPersonal(CuentaPersonalRepresentation rep, SocioModel socioModel,
