@@ -9,17 +9,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
+import org.sistcoop.socio.representations.idm.AutorizadoRepresentation;
 
-public interface CuentaPersonalResource {
+public interface AutorizadoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public CuentaPersonalRepresentation cuentaPersonal();
+    public AutorizadoRepresentation autorizado();
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(CuentaPersonalRepresentation representation);
+    public void update(AutorizadoRepresentation representation);
 
     @POST
     @Path("enable")
@@ -31,14 +31,5 @@ public interface CuentaPersonalResource {
 
     @DELETE
     public void remove();
-
-    @Path("autorizados")
-    public AutorizadosResource autorizados();
-
-    @Path("beneficiarios")
-    public BeneficiariosResource beneficiarios();
-
-    @Path("titulares")
-    public TitularesResource titulares();
 
 }

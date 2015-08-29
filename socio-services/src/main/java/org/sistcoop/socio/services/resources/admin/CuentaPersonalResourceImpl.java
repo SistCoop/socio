@@ -5,7 +5,10 @@ import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.PathParam;
 
+import org.sistcoop.socio.admin.client.resource.AutorizadosResource;
+import org.sistcoop.socio.admin.client.resource.BeneficiariosResource;
 import org.sistcoop.socio.admin.client.resource.CuentaPersonalResource;
+import org.sistcoop.socio.admin.client.resource.TitularesResource;
 import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.CuentaPersonalProvider;
 import org.sistcoop.socio.models.utils.ModelToRepresentation;
@@ -23,6 +26,15 @@ public class CuentaPersonalResourceImpl implements CuentaPersonalResource {
 
     @Inject
     private CuentaPersonalManager cuentaPersonalManager;
+
+    @Inject
+    private AutorizadosResource autorizadosResource;
+
+    @Inject
+    private BeneficiariosResource beneficiariosResource;
+
+    @Inject
+    private TitularesResource titularesResource;
 
     private CuentaPersonalModel getCuentaPersonalModel() {
         return cuentaPersonalProvider.findById(cuentaPersonal);
@@ -56,6 +68,21 @@ public class CuentaPersonalResourceImpl implements CuentaPersonalResource {
     @Override
     public void remove() {
         throw new NotFoundException();
+    }
+
+    @Override
+    public AutorizadosResource autorizados() {
+        return autorizadosResource;
+    }
+
+    @Override
+    public BeneficiariosResource beneficiarios() {
+        return beneficiariosResource;
+    }
+
+    @Override
+    public TitularesResource titulares() {
+        return titularesResource;
     }
 
 }

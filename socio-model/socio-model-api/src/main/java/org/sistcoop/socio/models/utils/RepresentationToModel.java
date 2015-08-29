@@ -4,6 +4,10 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.sistcoop.socio.models.AutorizadoModel;
+import org.sistcoop.socio.models.AutorizadoProvider;
+import org.sistcoop.socio.models.BeneficiarioModel;
+import org.sistcoop.socio.models.BeneficiarioProvider;
 import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.CuentaPersonalProvider;
 import org.sistcoop.socio.models.SocioModel;
@@ -12,6 +16,8 @@ import org.sistcoop.socio.models.TasaCuentaPersonalProvider;
 import org.sistcoop.socio.models.TitularProvider;
 import org.sistcoop.socio.models.enums.TipoCuentaPersonal;
 import org.sistcoop.socio.models.enums.TipoPersona;
+import org.sistcoop.socio.representations.idm.AutorizadoRepresentation;
+import org.sistcoop.socio.representations.idm.BeneficiarioRepresentation;
 import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
 import org.sistcoop.socio.representations.idm.SocioRepresentation;
 import org.sistcoop.socio.representations.idm.TasaCuentaPersonalRepresentation;
@@ -48,5 +54,19 @@ public class RepresentationToModel {
         }
 
         return cuentaPersonalModel;
+    }
+
+    public AutorizadoModel createAutorizado(AutorizadoRepresentation representation,
+            CuentaPersonalModel cuentaPersonalModel, AutorizadoProvider autorizadoProvider) {
+        return autorizadoProvider.create(cuentaPersonalModel, representation.getTipoDocumento(),
+                representation.getNumeroDocumento());
+    }
+
+    public BeneficiarioModel createBeneficiario(BeneficiarioRepresentation representation,
+            CuentaPersonalModel cuentaPersonalModel, BeneficiarioProvider beneficiarioProvider) {
+        return beneficiarioProvider.create(cuentaPersonalModel, representation.getTipoDocumento(),
+                representation.getNumeroDocumento(), representation.getApellidoPaterno(),
+                representation.getApellidoMaterno(), representation.getNombres(),
+                representation.getPorcentajeBeneficio());
     }
 }
