@@ -4,7 +4,7 @@
   "bearer-only": true,
   "auth-server-url": "https://keycloak-softgreen.rhcloud.com/auth",
   "ssl-required": "external",
-  "resource": "persona",
+  "resource": "socio",
   "use-resource-role-mappings": true,
   "enable-cors": true
 }

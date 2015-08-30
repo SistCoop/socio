@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
-	<datasource enabled="true" jndi-name="java:jboss/datasources/socioDS"
-		pool-name="socioDS" use-java-context="true">
+<datasources>
+	<datasource jndi-name="java:jboss/datasources/socioDS"
+		pool-name="socioDS" enabled="true" use-java-context="true">
 		<connection-url>jdbc:postgresql://localhost:5432/socio
 		</connection-url>
 		<driver>postgresql</driver>
-		<pool>
-			<max-pool-size>30</max-pool-size>
-		</pool>
 		<security>
 			<user-name>postgres</user-name>
 			<password>123456</password>

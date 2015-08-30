@@ -5,7 +5,7 @@
 	version="3.0">
 	
 	<!-- keycloak aplication name -->
-	<module-name>persona</module-name>
+	<module-name>socio</module-name>
 
 	<!-- Login method -->
 	<login-config>
