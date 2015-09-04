@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <datasources>
-	<datasource jndi-name="java:jboss/datasources/socioDS"
-		pool-name="socioDS" enabled="true" use-java-context="true">
-		<connection-url>jdbc:postgresql://localhost:5432/socio
-		</connection-url>
+	<datasource jndi-name="java:jboss/datasources/SocioDS" pool-name="SocioDS" enabled="true" use-java-context="true">
+		<connection-url>jdbc:postgresql://localhost:5432/socio</connection-url>
 		<driver>postgresql</driver>
 		<security>
 			<user-name>postgres</user-name>
