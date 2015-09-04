@@ -11,8 +11,7 @@ dependencies {
     compile project(":socio-integration:socio-client")
     compile project(":socio-services")
     compile project(":socio-model:socio-model-api")
-    compile project(":socio-model:socio-model-jpa")
-    providedCompile 'org.jboss.resteasy:resteasy-jaxrs:3.0.9.Final'
+    compile project(":socio-model:socio-model-jpa")    
 }
 
 task createBuildInfoFile << {
