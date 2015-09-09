@@ -86,12 +86,10 @@ public class SociosResourceImpl implements SociosResource {
         }
         searchCriteriaBean.addFilter("estado", estado, SearchCriteriaFilterOperator.bool_eq);
 
-        SearchResultsModel<SocioModel> results = null;
-        if (filterText != null) {
-            results = socioProvider.search(searchCriteriaBean);
-        } else {
-            results = socioProvider.search(searchCriteriaBean, filterText);
+        if (filterText == null) {
+            filterText = "";
         }
+        SearchResultsModel<SocioModel> results = socioProvider.search(searchCriteriaBean, filterText);
 
         SearchResultsRepresentation<SocioRepresentation> rep = new SearchResultsRepresentation<>();
         List<SocioRepresentation> representations = new ArrayList<>();

@@ -132,20 +132,6 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
     }
 
     @Override
-    public SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria) {
-        SearchResultsModel<SocioEntity> entityResult = find(criteria, SocioEntity.class);
-
-        SearchResultsModel<SocioModel> modelResult = new SearchResultsModel<>();
-        List<SocioModel> list = new ArrayList<>();
-        for (SocioEntity entity : entityResult.getModels()) {
-            list.add(new SocioAdapter(em, entity));
-        }
-        modelResult.setTotalSize(entityResult.getTotalSize());
-        modelResult.setModels(list);
-        return modelResult;
-    }
-
-    @Override
     public SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria, String filterText) {
         SearchResultsModel<SocioEntity> entityResult = findFullText(criteria, SocioEntity.class, filterText,
                 "tipoDocumento", "numeroDocumento");

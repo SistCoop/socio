@@ -18,10 +18,8 @@ public interface SocioProvider extends Provider {
 
     SocioModel findById(String id);
 
-    List<SocioModel> findAll();
+    List<SocioModel> findAll();    
 
-    SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria);
-
-    SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria, String FfilterText);
+    SearchResultsModel<SocioModel> search(SearchCriteriaModel criteria, String filterText);
 
 }
