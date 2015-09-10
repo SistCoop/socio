@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.sistcoop.socio.representations.idm.CuentaAporteRepresentation;
 import org.sistcoop.socio.representations.idm.SocioRepresentation;
 
 public interface SocioResource {
@@ -32,6 +33,10 @@ public interface SocioResource {
     @DELETE
     public void remove();
 
+    @Path("cuentaAporte")
+    @GET
+    public CuentaAporteRepresentation cuentaAporte();
+    
     @Path("cuentasPersonales")
     public CuentasPersonalesResource cuentasPersonales();
 

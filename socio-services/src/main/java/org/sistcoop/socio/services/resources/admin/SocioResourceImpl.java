@@ -7,9 +7,12 @@ import javax.ws.rs.PathParam;
 
 import org.sistcoop.socio.admin.client.resource.CuentasPersonalesResource;
 import org.sistcoop.socio.admin.client.resource.SocioResource;
+import org.sistcoop.socio.models.CuentaAporteModel;
+import org.sistcoop.socio.models.CuentaAporteProvider;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.SocioProvider;
 import org.sistcoop.socio.models.utils.ModelToRepresentation;
+import org.sistcoop.socio.representations.idm.CuentaAporteRepresentation;
 import org.sistcoop.socio.representations.idm.SocioRepresentation;
 import org.sistcoop.socio.services.managers.SocioManager;
 
@@ -21,6 +24,9 @@ public class SocioResourceImpl implements SocioResource {
 
     @Inject
     private SocioProvider socioProvider;
+
+    @Inject
+    private CuentaAporteProvider cuentaAporteProvider;
 
     @Inject
     private SocioManager socioManager;
@@ -60,6 +66,12 @@ public class SocioResourceImpl implements SocioResource {
     @Override
     public void remove() {
         throw new NotFoundException();
+    }
+
+    @Override
+    public CuentaAporteRepresentation cuentaAporte() {
+        CuentaAporteModel model = cuentaAporteProvider.findBySocio(getSocioModel());
+        return ModelToRepresentation.toRepresentation(model);
     }
 
     @Override

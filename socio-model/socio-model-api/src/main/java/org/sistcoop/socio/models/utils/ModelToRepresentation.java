@@ -2,11 +2,13 @@ package org.sistcoop.socio.models.utils;
 
 import org.sistcoop.socio.models.AutorizadoModel;
 import org.sistcoop.socio.models.BeneficiarioModel;
+import org.sistcoop.socio.models.CuentaAporteModel;
 import org.sistcoop.socio.models.CuentaPersonalModel;
 import org.sistcoop.socio.models.SocioModel;
 import org.sistcoop.socio.models.TitularModel;
 import org.sistcoop.socio.representations.idm.AutorizadoRepresentation;
 import org.sistcoop.socio.representations.idm.BeneficiarioRepresentation;
+import org.sistcoop.socio.representations.idm.CuentaAporteRepresentation;
 import org.sistcoop.socio.representations.idm.CuentaPersonalRepresentation;
 import org.sistcoop.socio.representations.idm.SocioRepresentation;
 import org.sistcoop.socio.representations.idm.TitularRepresentation;
@@ -28,6 +30,19 @@ public class ModelToRepresentation {
         rep.setFechaFin(model.getFechaFin());
         rep.setEstado(model.getEstado());
 
+        return rep;
+    }
+
+    public static CuentaAporteRepresentation toRepresentation(CuentaAporteModel model) {
+        if (model == null)
+            return null;
+
+        CuentaAporteRepresentation rep = new CuentaAporteRepresentation();
+        rep.setId(model.getId());
+        rep.setMoneda(model.getMoneda());
+        rep.setNumeroCuenta(model.getNumeroCuenta());
+        rep.setSaldo(model.getSaldo());
+        rep.setEstado(model.getEstado().toString());
         return rep;
     }
 
