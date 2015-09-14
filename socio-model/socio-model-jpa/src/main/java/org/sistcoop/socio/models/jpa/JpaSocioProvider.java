@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.ejb.EJBException;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -51,6 +52,18 @@ public class JpaSocioProvider extends AbstractHibernateStorage implements SocioP
 
     @Override
     public SocioModel create(TipoPersona tipoPersona, String tipoDocumento, String numeroDocumento) {
+        //
+        TypedQuery<SocioEntity> querySocio = em.createNamedQuery("SocioEntity.findByTipoNumeroDocumento",
+                SocioEntity.class);
+        querySocio.setParameter("tipoDocumento", tipoDocumento);
+        querySocio.setParameter("numeroDocumento", numeroDocumento);
+        List<SocioEntity> socioEntities = querySocio.getResultList();
+        for (SocioEntity socioEntity : socioEntities) {
+            if (socioEntity.isEstado()) {
+                throw new EJBException("Socio ya existente");
+            }
+        }
+
         // Buscar moneda por defecto
         TypedQuery<MonedaCuentaAporteEntity> queryMonedas = em.createNamedQuery(
                 "MonedaCuentaAporteEntity.findByEstado", MonedaCuentaAporteEntity.class);
